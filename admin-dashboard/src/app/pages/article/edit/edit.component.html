@@ -1,0 +1,57 @@
+<section class="inner-content">
+    <div>
+        <div nz-row [nzGutter]="36">
+            <div nz-col [nzSpan]="15">
+                <h2>正文编辑:</h2>
+                <!-- <nz-divider nzText="编辑" nzOrientation="left"></nz-divider> -->
+                <textarea nzAutosize [nzAutosize]="{ minRows: 25 }" nz-input [(ngModel)]="markdown"></textarea>
+            </div>
+
+            <div nz-col [nzSpan]="9">
+                <form nz-form>
+                    <nz-form-item>
+                        <nz-form-label nzRequired="true">标题</nz-form-label>
+                        <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                            <input nz-input [ngModel]="'Required Input'" name="required" required />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label>文章摘要</nz-form-label>
+                        <textarea nz-input placeholder="Autosize height with minimum and maximum number of lines"
+                            [(ngModel)]="value" [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label>文章分类</nz-form-label>
+                        <nz-select [ngModel]="'Option1'">
+                            <nz-option [nzLabel]="'Option1'" [nzValue]="'Option1'"></nz-option>
+                            <nz-option [nzLabel]="'Option2'" [nzValue]="'Option2'"></nz-option>
+                        </nz-select>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzRequired>发布时间</nz-form-label>
+                        <nz-form-control>
+                            <nz-date-picker nzShowTime></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzRequired>文章标签</nz-form-label>
+                        <input nz-input [ngModel]="'tag'" name="tag" />
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+                            <button nz-button nzType="primary" (click)="preView()">预览</button>
+                            <button nz-button nzType="primary">发布</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
+        </div>
+        <nz-modal [(nzVisible)]="isVisible" nzTitle="预览文章" nzMask nzMaskClosable="false" (nzOnCancel)="handleOk()"
+            nzWidth="960" [nzStyle]="{ top: '20px' }">
+            <markdown [data]="markdown" class="markdown-body"></markdown>
+            <div *nzModalFooter>
+                <button nz-button nzType="primary" (click)="handleOk()">确定</button>
+            </div>
+        </nz-modal>
+    </div>
+</section>

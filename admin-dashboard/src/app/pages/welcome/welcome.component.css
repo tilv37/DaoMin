@@ -1,0 +1,14 @@
+nz-card {
+    font-size: 24px;
+    text-align: center;
+}
+
+.my-container {
+    padding: 24px;
+    background: #fff;
+    height: 80%;
+}
+
+.e-chart {
+    height: 100%;
+}

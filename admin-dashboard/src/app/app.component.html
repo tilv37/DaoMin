@@ -1,0 +1,54 @@
+<nz-layout class="app-layout">
+    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+        [nzTrigger]="null">
+        <div class="sidebar-logo">
+            <a href="https://ng.ant.design/" target="_blank">
+                <img src="../assets/img/logo.png" alt="logo">
+                <h1>DaoMin Blog</h1>
+            </a>
+        </div>
+        <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+            <li nz-submenu nzOpen nzTitle="看板" nzIcon="dashboard">
+                <ul>
+                    <li nz-menu-item nzMatchRouter>
+                        <a routerLink="/welcome">概览</a>
+                    </li>
+                </ul>
+            </li>
+            <li nz-submenu nzOpen nzTitle="写作" nzIcon="form">
+                <ul>
+                    <li nz-menu-item nzMatchRouter>
+                        <a [routerLink]="['article']">文章列表</a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter>
+                        <a [routerLink]="['category']">分类</a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter>
+                        <a>标签</a>
+                    </li>
+                </ul>
+            </li>
+            <li nz-menu-item>
+                <i nz-icon nzType="logout"></i>
+                <span>退出登录</span>
+            </li>
+        </ul>
+    </nz-sider>
+    <nz-layout>
+        <nz-header>
+            <div class="app-header">
+                <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+                    <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+                </span>
+                
+                <span class="header-trigger" (click)="clearCache()"><i nz-icon nzType="rest"></i>清除缓存</span>
+            </div>
+        </nz-header>
+        <nz-content>
+            <router-outlet></router-outlet>
+            <!-- <div class="inner-content">
+                <router-outlet></router-outlet>
+            </div> -->
+        </nz-content>
+    </nz-layout>
+</nz-layout>

@@ -1,0 +1,53 @@
+<div class="operateArea" nz-row nzGutter="32">
+    <div nz-col style="width: 300px;" nzSpan="4">
+        <!-- <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+            <input type="text" nz-input placeholder="搜索标题" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+            <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+        </ng-template> -->
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+            <input type="text" nz-input placeholder="input search text" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+            <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+        </ng-template>
+    </div>
+
+    <button nz-col nz-button nzType="danger" nzSpan="4" (click)="showDeleteModal()"><i nz-icon nzType="delete"></i>删除</button>
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="提示" nzContent="确认删除吗？" (nzOnCancel)="deleteCancel()" (nzOnOk)="deleteConfirm()" [nzOkLoading]="isOkLoading"></nz-modal>
+    <button nz-button nzType="primary" (click)="gotoUrl()"><i nz-icon nzType="plus"></i>新增文章</button>
+    <span *ngIf="selectedNumber">已选 {{selectedNumber}} 个文章</span>
+</div>
+<div nz-row>
+    <nz-table #basicTable [nzData]="articleInfoList" (nzCurrentPageDataChange)="currentPageDataChange($event)" nzSize="middle ">
+        <thead>
+            <tr>
+                <th nzShowCheckbox [(nzChecked)]=isAllChecked (nzCheckedChange)="checkedChangeAll($event)"></th>
+                <th>ID</th>
+                <th>标题</th>
+                <th>分类</th>
+                <th>标签</th>
+                <th>时间</th>
+                <th nzRight="0px" nzWidth="10% ">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data">
+                <td nzShowCheckbox [(nzChecked)]="itemsCheckedStatus[data.id]" (nzCheckedChange)="refreshStatus($event)"></td>
+                <td>{{data.id}}</td>
+                <td>{{data.title}}</td>
+                <td>{{data.category}}</td>
+                <td>{{data.tag}}</td>
+                <td>{{data.time}}</td>
+                <td>
+                    <a title="编辑文章"><i nz-icon [nzType]="'edit'"></i></a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a title="删除文章"><i nz-icon [nzType]="'delete'"></i></a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a title="预览文章"><i nz-icon [nzType]="'read'"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

@@ -1,0 +1,18 @@
+<section nz-row nzType="flex" nzJustify="space-around" style="margin-bottom: 24px;">
+    <div nz-col nzSpan="4">
+        <nz-card nzHoverable>文章总数</nz-card>
+    </div>
+    <div nz-col nzSpan="4">
+        <nz-card nzHoverable>CPU使用率</nz-card>
+    </div>
+    <div nz-col nzSpan="4">
+        <nz-card nzHoverable>内存使用率</nz-card>
+    </div>
+    <div nz-col nzSpan="4">
+        <nz-card nzHoverable>磁盘空间</nz-card>
+    </div>
+
+</section>
+<section nz-row class="my-container">
+    <div echarts [options]="chartOption" class="e-chart"></div>
+</section>

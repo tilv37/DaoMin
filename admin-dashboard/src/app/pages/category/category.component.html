@@ -1,0 +1,51 @@
+<section class="inner-content">
+    <div>
+        <div nz-row [nzGutter]="24">
+            <div nz-col [nzSpan]="15">
+                <nz-table #basicTable [nzData]="categoryList">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>分类名称</th>
+                            <th>文章数量</th>
+                            <th nzRight="0px" nzWidth="20%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of basicTable.data">
+                            <td>{{ data.id }}</td>
+                            <td>{{ data.catagoryName }}</td>
+                            <td>{{ data.postNum }}</td>
+                            <td>
+                                <a title="编辑分类"><i nz-icon [nzType]="'edit'"></i></a>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <a title="删除分类"><i nz-icon [nzType]="'delete'"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+            <div nz-col [nzSpan]="9">
+                <form nz-form>
+                    <nz-form-item>
+                        <nz-form-label  nzRequired nzFor="email">分类名称</nz-form-label>
+                        <nz-form-control nzErrorTip="The input is not valid E-mail!">
+                            <nz-input-group [nzSuffix]="suffixTemplate">
+                                <input type="text" nz-input [(ngModel)]="inputValue"
+                                    placeholder="input with clear icon" />
+                            </nz-input-group>
+                            <ng-template #suffixTemplate><i nz-icon nz-tooltip class="ant-input-clear-icon"
+                                    nzTheme="fill" nzType="close-circle" *ngIf="inputValue"
+                                    (click)="inputValue = null"></i></ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item nz-row class="register-area">
+                        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+                            <button nz-button nzType="primary">提交</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
