@@ -14,6 +14,6 @@ export class AppComponent {
 
   clearCache(){
     localStorage.clear();
-    this.message.info('Cache has benn clear');
+    this.message.info('The cache has been cleaned');
   }
 }

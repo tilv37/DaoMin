@@ -1,18 +1,18 @@
-<section nz-row nzType="flex" nzJustify="space-around" style="margin-bottom: 24px;">
-    <div nz-col nzSpan="4">
-        <nz-card nzHoverable>文章总数</nz-card>
-    </div>
-    <div nz-col nzSpan="4">
-        <nz-card nzHoverable>CPU使用率</nz-card>
-    </div>
-    <div nz-col nzSpan="4">
-        <nz-card nzHoverable>内存使用率</nz-card>
-    </div>
-    <div nz-col nzSpan="4">
-        <nz-card nzHoverable>磁盘空间</nz-card>
-    </div>
 
-</section>
 <section nz-row class="my-container">
+    <nz-row [nzGutter]="16">
+        <nz-col [nzSpan]="8">
+            <nz-statistic [nzValue]="1949101 | number" [nzTitle]="'Active Users'"></nz-statistic>
+        </nz-col>
+        <nz-col [nzSpan]="8">
+            <nz-statistic [nzValue]="2019.111 | number: '1.0-2'" [nzTitle]="'Account Balance (CNY)'"></nz-statistic>
+        </nz-col>
+        <nz-col [nzSpan]="8">
+            <nz-statistic [nzValue]="2019.111 | number: '1.0-2'" [nzTitle]="'Account Balance (CNY)'"></nz-statistic>
+        </nz-col>
+    </nz-row>
+    <nz-divider></nz-divider>
+    <nz-row [nzGutter]="16" class="echart-div">
     <div echarts [options]="chartOption" class="e-chart"></div>
+    </nz-row>
 </section>

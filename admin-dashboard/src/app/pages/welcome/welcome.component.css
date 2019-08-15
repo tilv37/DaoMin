@@ -6,9 +6,13 @@ nz-card {
 .my-container {
     padding: 24px;
     background: #fff;
-    height: 80%;
+    margin-bottom: 24px;
 }
 
 .e-chart {
-    height: 100%;
+    min-height: 400px;
+}
+
+.echart-div{
+    min-height: 450px;
 }

@@ -55,4 +55,12 @@ public class TagEntity {
     public void setModifyTM(Date modifyTM) {
         this.modifyTM = modifyTM;
     }
+
+    public List<PostEntity> getPostEntityList() {
+        return postEntityList;
+    }
+
+    public void setPostEntityList(List<PostEntity> postEntityList) {
+        this.postEntityList = postEntityList;
+    }
 }

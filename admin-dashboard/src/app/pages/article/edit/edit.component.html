@@ -18,14 +18,16 @@
                     <nz-form-item>
                         <nz-form-label>文章摘要</nz-form-label>
                         <textarea nz-input placeholder="Autosize height with minimum and maximum number of lines"
-                            [(ngModel)]="value" [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+                             [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
                     </nz-form-item>
                     <nz-form-item>
                         <nz-form-label>文章分类</nz-form-label>
-                        <nz-select [ngModel]="'Option1'">
-                            <nz-option [nzLabel]="'Option1'" [nzValue]="'Option1'"></nz-option>
-                            <nz-option [nzLabel]="'Option2'" [nzValue]="'Option2'"></nz-option>
-                        </nz-select>
+                        <nz-select style="width: 120px;" [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="Choose" [ngModelOptions]="{standalone: true}">
+                            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                            <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                          </nz-select>
+                          {{selectedValue}}
                     </nz-form-item>
                     <nz-form-item>
                         <nz-form-label nzRequired>发布时间</nz-form-label>

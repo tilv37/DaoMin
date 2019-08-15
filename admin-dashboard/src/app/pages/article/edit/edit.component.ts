@@ -10,6 +10,7 @@ export class EditComponent implements OnInit {
 
   markdown: string;
   isVisible: boolean = false;
+  selectedValue:string;
 
   constructor(private modalService: NzModalService) { }
 

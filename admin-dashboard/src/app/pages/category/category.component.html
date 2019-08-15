@@ -32,7 +32,7 @@
                         <nz-form-control nzErrorTip="The input is not valid E-mail!">
                             <nz-input-group [nzSuffix]="suffixTemplate">
                                 <input type="text" nz-input [(ngModel)]="inputValue"
-                                    placeholder="input with clear icon" />
+                                    placeholder="input with clear icon"  [ngModelOptions]="{standalone: true}"/>
                             </nz-input-group>
                             <ng-template #suffixTemplate><i nz-icon nz-tooltip class="ant-input-clear-icon"
                                     nzTheme="fill" nzType="close-circle" *ngIf="inputValue"

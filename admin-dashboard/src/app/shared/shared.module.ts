@@ -11,7 +11,9 @@ import {
   NzModalModule,
   NzMessageModule,
   NzDatePickerModule,
-  NzSelectModule  
+  NzSelectModule,
+  NzFormModule,
+  NzStatisticModule    
 } from "ng-zorro-antd";
 
 const nzModule=[
@@ -25,7 +27,9 @@ const nzModule=[
   NzModalModule,
   NzMessageModule,
   NzDatePickerModule,
-  NzSelectModule  
+  NzSelectModule,
+  NzFormModule,
+  NzStatisticModule    
 ]
 
 @NgModule({
