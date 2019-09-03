@@ -2,7 +2,14 @@
     <div>
         <div nz-row [nzGutter]="24">
             <div nz-col [nzSpan]="15">
-                <nz-table #basicTable [nzData]="categoryList">
+                <nz-table #basicTable 
+                [nzData]="categoryInView" 
+                [nzLoading]="loading"
+                [nzTotal]="total"
+                [nzFrontPagination]="false"
+                [(nzPageIndex)]="pageNo"
+                [(nzPageSize)]="pageSize"
+                (nzPageIndexChange)="getAllCategory()">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -13,13 +20,14 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of basicTable.data">
+
                             <td>{{ data.id }}</td>
-                            <td>{{ data.catagoryName }}</td>
-                            <td>{{ data.postNum }}</td>
+                            <td>{{ data.categoryName }}</td>
+                            <td>{{ data.postCount==null? '0':data.postCount}}</td>
                             <td>
                                 <a title="编辑分类"><i nz-icon [nzType]="'edit'"></i></a>
                                 <nz-divider nzType="vertical"></nz-divider>
-                                <a title="删除分类"><i nz-icon [nzType]="'delete'"></i></a>
+                                <a title="删除标签"><i nz-icon [nzType]="'delete'"></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -41,7 +49,7 @@
                     </nz-form-item>
                     <nz-form-item nz-row class="register-area">
                         <nz-form-control [nzSpan]="14" [nzOffset]="6">
-                            <button nz-button nzType="primary">提交</button>
+                            <button nz-button nzType="primary" (click)="addNewCategory()">提交</button>
                         </nz-form-control>
                     </nz-form-item>
                 </form>

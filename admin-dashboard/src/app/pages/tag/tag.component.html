@@ -20,9 +20,10 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of basicTable.data">
+
                             <td>{{ data.id }}</td>
                             <td>{{ data.tagName }}</td>
-                            <td>{{ data.postCount }}</td>
+                            <td>{{ data.postCount==null? '0':data.postCount}}</td>
                             <td>
                                 <a title="编辑分类"><i nz-icon [nzType]="'edit'"></i></a>
                                 <nz-divider nzType="vertical"></nz-divider>

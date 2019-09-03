@@ -1,5 +1,5 @@
 export class CategoryModel{
     id:number;
-    catagoryName:string;
-    postNum:number;
+    categoryName:string;
+    postCount:number;
 }
