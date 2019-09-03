@@ -1,8 +1,11 @@
 package com.haramasu.daomin.controller;
 
+import com.haramasu.daomin.entity.db.CategoryEntity;
 import com.haramasu.daomin.entity.db.PostEntity;
 import com.haramasu.daomin.entity.db.TagEntity;
 import com.haramasu.daomin.entity.dto.ResponseDTO;
+import com.haramasu.daomin.entity.viewo.CategoryVO;
+import com.haramasu.daomin.entity.viewo.PostSummaryVO;
 import com.haramasu.daomin.entity.viewo.TagVO;
 import com.haramasu.daomin.service.CategoryService;
 import com.haramasu.daomin.service.PostService;
@@ -10,6 +13,7 @@ import com.haramasu.daomin.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,30 +29,43 @@ import java.util.stream.Collectors;
 public class AdminApiController {
 
     @Autowired
-    PostService postService;
+    private PostService postService;
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @GetMapping(value = "tags")
     public ResponseDTO<Page<TagVO>> getTags(@RequestParam(name = "pageNo",defaultValue = "0")int pageNo,
                                           @RequestParam(name = "pageSize",defaultValue = "10")int pageSize){
-        Page<TagEntity> tagsPageable = tagService.getTagsPageable(pageNo, pageSize);
-        List<TagVO> tagVOS = tagsPageable.getContent().stream().map(x -> {
-            TagVO tagVO = new TagVO();
-            tagVO.setId(x.getId());
-            tagVO.setTagName(x.getTagName());
-            tagVO.setPostCount(x.getPostEntityList().size());
-            return tagVO;
-        }).collect(Collectors.toList());
-        Page<TagVO> tagVOPage=new PageImpl<TagVO>(tagVOS,tagsPageable.getPageable(),tagsPageable.getTotalElements());
-        return ResponseDTO.success(tagVOPage);
+
+        Page<TagVO> tagWithPostNoPageable = tagService.getTagWithPostNoPageable(pageNo, pageSize);
+        return ResponseDTO.success(tagWithPostNoPageable);
     }
 
     @PostMapping(value = "tags/{tagName}")
     public ResponseDTO<TagEntity> addNewTag(@PathVariable(name = "tagName")String tagName){
         ResponseDTO<TagEntity> tagEntityResponseDTO = tagService.addNewTag(tagName);
         return tagEntityResponseDTO;
+    }
+
+    @PostMapping(value = "category/{catgoryName}")
+    public ResponseDTO<CategoryEntity> addNewCategory(@PathVariable(name = "catgoryName")String catgoryName){
+        ResponseDTO<CategoryEntity> categoryEntityResponseDTO = categoryService.addNewCategory(catgoryName);
+        return categoryEntityResponseDTO;
+    }
+
+    @GetMapping(value = "category")
+    public ResponseDTO<Page<CategoryVO>> getCategories(@RequestParam(name = "pageNo",defaultValue = "0")int pageNo,
+                                                       @RequestParam(name = "pageSize",defaultValue = "10")int pageSize){
+        Page<CategoryVO> categoryPageable = categoryService.getCategoryPageable(PageRequest.of(pageNo, pageSize));
+        return ResponseDTO.success(categoryPageable);
+    }
+
+    @GetMapping(value = "post")
+    public ResponseDTO<Page<PostSummaryVO>> getPosts(@RequestParam(name = "pageNo",defaultValue = "0")int pageNo,
+                                               @RequestParam(name = "pageSize",defaultValue = "10")int pageSize){
+        Page<PostSummaryVO> allPostSummary = postService.getAllPostSummary(PageRequest.of(pageNo, pageSize));
+        return ResponseDTO.success(allPostSummary);
     }
 }

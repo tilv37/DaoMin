@@ -2,9 +2,13 @@ package com.haramasu.daomin.service.impl;
 
 import com.haramasu.daomin.entity.db.CategoryEntity;
 import com.haramasu.daomin.entity.dto.ResponseDTO;
+import com.haramasu.daomin.entity.viewo.CategoryVO;
 import com.haramasu.daomin.repo.CategoryRepo;
+import com.haramasu.daomin.repo.dsl.CategoryDslRepo;
 import com.haramasu.daomin.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +25,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     CategoryRepo categoryRepo;
+    @Autowired
+    CategoryDslRepo categoryDslRepo;
 
     @Override
     public ResponseDTO<CategoryEntity> addNewCategory(String categoryName) {
@@ -48,5 +54,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public boolean isCategoryExist(String categoryName) {
         return categoryRepo.countByCategoryName(categoryName)>0?true:false;
+    }
+
+    @Override
+    public Page<CategoryVO> getCategoryPageable(Pageable pageable) {
+        return categoryDslRepo.findWithPostNo(pageable);
     }
 }

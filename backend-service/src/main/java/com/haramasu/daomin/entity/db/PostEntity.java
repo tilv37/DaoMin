@@ -1,5 +1,8 @@
 package com.haramasu.daomin.entity.db;
 
+import com.haramasu.daomin.entity.viewo.CategoryVO;
+import com.haramasu.daomin.entity.viewo.TagVO;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -9,6 +12,20 @@ import java.util.Set;
  * @description:
  * @date: 8/12/2019
  */
+@SqlResultSetMappings({
+        @SqlResultSetMapping(
+                name = "CategoryWithPostCount",
+                classes = @ConstructorResult(
+                        targetClass = CategoryVO.class,
+                        columns = {
+                                @ColumnResult(name = "tid",type = Integer.class),
+                                @ColumnResult(name = "categoryName",type = String.class),
+                                @ColumnResult(name = "postNo",type = Integer.class)
+                        }
+                )
+        )
+}
+)
 @Entity
 public class PostEntity {
 

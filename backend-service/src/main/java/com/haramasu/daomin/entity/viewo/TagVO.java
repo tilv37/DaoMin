@@ -36,4 +36,13 @@ public class TagVO {
     public void setPostCount(Integer postCount) {
         this.postCount = postCount;
     }
+
+    public TagVO() {
+    }
+
+    public TagVO(Integer id, String tagName, Integer postCount) {
+        this.id = id;
+        this.tagName = tagName;
+        this.postCount = postCount;
+    }
 }

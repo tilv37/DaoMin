@@ -1,5 +1,7 @@
 package com.haramasu.daomin.entity.db;
 
+import com.haramasu.daomin.entity.viewo.TagVO;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +11,20 @@ import java.util.List;
  * @description:
  * @date: 8/12/2019
  */
+@SqlResultSetMappings({
+        @SqlResultSetMapping(
+                name = "TagWithPostCount",
+                classes = @ConstructorResult(
+                        targetClass = TagVO.class,
+                        columns = {
+                                @ColumnResult(name = "tid",type = Integer.class),
+                                @ColumnResult(name = "tagName",type = String.class),
+                                @ColumnResult(name = "postNo",type = Integer.class)
+                        }
+                )
+        )
+}
+)
 @Entity
 public class TagEntity {
     @Id
@@ -21,7 +37,7 @@ public class TagEntity {
 
     private Date modifyTM;
 
-    @ManyToMany(mappedBy = "tagEntities")
+    @ManyToMany(mappedBy = "tagEntities",fetch = FetchType.LAZY)
     private List<PostEntity> postEntityList;
 
     public Integer getId() {
