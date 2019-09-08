@@ -3,6 +3,8 @@ import {Router} from "@angular/router"
 import { ArticleSummary } from "../../../model/articleSummaryModel";
 import { HelpUtils } from "../../../util/helpUtils";
 import { NzMessageService } from 'ng-zorro-antd';
+import { postSummaryModel } from "../../../model/postSummaryModel";
+import { PostAdminService } from "../../../service/post-admin.service";
 
 @Component({
   selector: 'app-list',
@@ -16,107 +18,20 @@ export class ListComponent implements OnInit {
   isOkLoading:boolean = false;
   isAllChecked: boolean = false;
   itemsCheckedStatus: { [key: string]: boolean } = {};
-  nowDisplayData: ArticleSummary[] = [];
+  nowDisplayData: postSummaryModel[] = [];
   selectedNumber:number=0;
 
-  articleInfoList = [
-    {
-      id: '1',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    },
-    {
-      id: '2',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    },
-    {
-      id: '3',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    },
-    {
-      id: '4',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    },
-    {
-      id: '5',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    },
-    {
-      id: '6',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    },
-    {
-      id: '7',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    },
-    {
-      id: '8',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    },
-    {
-      id: '9',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    },
-    {
-      id: '10',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    },
-    {
-      id: '11',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    },
-    {
-      id: '12',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    },
-    {
-      id: '13',
-      title: '第一篇文章',
-      time: '2019-01-01',
-      category: '默认分类',
-      tag: '默认标签'
-    }
-  ]
+  pageNo:number = 1;
+  pageSize:number =10;
+  total:number=1;
+  loading = false;
+  postInView:postSummaryModel[] =[]; 
 
-  constructor(private message: NzMessageService,private router: Router) {
+  constructor(private message: NzMessageService,private router: Router,private postService:PostAdminService) {
    }
 
   ngOnInit() {
+    this.getAllPostSummary();
   }
 
   showDeleteModal(){
@@ -160,5 +75,13 @@ export class ListComponent implements OnInit {
 
   gotoUrl():void{
     this.router.navigate(['/article/edit']);
+  }
+
+  getAllPostSummary():void{
+    this.postService.getAllPostSummary(this.pageNo-1,this.pageSize).subscribe(x=>{
+      this.loading=false;
+      this.total=x.data["totalElements"];
+      this.nowDisplayData=x.data["content"];
+    })
   }
 }
