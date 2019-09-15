@@ -1,48 +1,24 @@
 package com.haramasu.daomin.entity.dto;
 
+import lombok.Builder;
+import lombok.Data;
+
+import java.util.Date;
+
 /**
  * @author: Shuo Ding
  * @description:
  * @date: 8/12/2019
  */
+@Data
+@Builder
 public class PostDTO {
-    private String title;
 
-    private String titleUrl;
+    private String title;
 
     private String summary;
 
     private String content;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTitleUrl() {
-        return titleUrl;
-    }
-
-    public void setTitleUrl(String titleUrl) {
-        this.titleUrl = titleUrl;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    private Date createTM;
 }

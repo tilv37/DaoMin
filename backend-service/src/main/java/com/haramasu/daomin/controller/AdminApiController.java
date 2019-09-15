@@ -3,6 +3,7 @@ package com.haramasu.daomin.controller;
 import com.haramasu.daomin.entity.db.CategoryEntity;
 import com.haramasu.daomin.entity.db.PostEntity;
 import com.haramasu.daomin.entity.db.TagEntity;
+import com.haramasu.daomin.entity.dto.PostDTO;
 import com.haramasu.daomin.entity.dto.ResponseDTO;
 import com.haramasu.daomin.entity.viewo.CategoryVO;
 import com.haramasu.daomin.entity.viewo.PostSummaryVO;
@@ -67,5 +68,17 @@ public class AdminApiController {
                                                @RequestParam(name = "pageSize",defaultValue = "10")int pageSize){
         Page<PostSummaryVO> allPostSummary = postService.getAllPostSummary(PageRequest.of(pageNo, pageSize));
         return ResponseDTO.success(allPostSummary);
+    }
+
+    @DeleteMapping(value = "post/{postId}")
+    public ResponseDTO<String> deletePost(@PathVariable(name = "postId") Integer postId){
+        postService.deletePostById(postId);
+        return ResponseDTO.success();
+    }
+
+    @PostMapping(value = "post")
+    public ResponseDTO<String> addNewPost(@RequestBody PostDTO postDTO){
+        PostEntity postEntity = postService.addNewPost(postDTO);
+        return ResponseDTO.success();
     }
 }

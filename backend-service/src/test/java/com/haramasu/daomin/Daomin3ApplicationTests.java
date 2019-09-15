@@ -19,7 +19,5 @@ public class Daomin3ApplicationTests {
     }
 
     @Test
-    public void addPost(){
-        postService.addNewPost();
-    }
+    public void addPost(){ }
 }
