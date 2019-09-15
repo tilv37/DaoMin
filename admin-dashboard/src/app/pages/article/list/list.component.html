@@ -45,9 +45,9 @@
                 <td>{{data.tags}}</td>
                 <td>{{data.createTM}}</td>
                 <td>
-                    <a title="编辑文章"><i nz-icon [nzType]="'edit'"></i></a>
+                    <a title="编辑文章" (click)='goEditPost(data.id)'><i nz-icon [nzType]="'edit'"></i></a>
                     <nz-divider nzType="vertical"></nz-divider>
-                    <a title="删除文章"><i nz-icon [nzType]="'delete'"></i></a>
+                    <a title="删除文章" (click)='deletePostById(data.id)'><i nz-icon [nzType]="'delete'"></i></a>
                     <nz-divider nzType="vertical"></nz-divider>
                     <a title="预览文章"><i nz-icon [nzType]="'read'"></i></a>
                 </td>

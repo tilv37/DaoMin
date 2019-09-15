@@ -16,4 +16,8 @@ export class PostAdminService {
         params: new HttpParams().append("pageNo", `${pageNo}`).append("pageSize", `${pageSize}`)
       });
   }
+
+  deletePostById(postId:number){
+    return this.http.delete('http://127.0.0.1:8080/api/admin/v1/post/'+postId);
+  }
 }

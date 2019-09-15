@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router"
-import { ArticleSummary } from "../../../model/articleSummaryModel";
 import { HelpUtils } from "../../../util/helpUtils";
 import { NzMessageService } from 'ng-zorro-antd';
 import { postSummaryModel } from "../../../model/postSummaryModel";
 import { PostAdminService } from "../../../service/post-admin.service";
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-list',
@@ -27,7 +27,10 @@ export class ListComponent implements OnInit {
   loading = false;
   postInView:postSummaryModel[] =[]; 
 
-  constructor(private message: NzMessageService,private router: Router,private postService:PostAdminService) {
+  constructor(private message: NzMessageService,
+    private router: Router,
+    private postService:PostAdminService,
+    private modalService: NzModalService) {
    }
 
   ngOnInit() {
@@ -63,7 +66,7 @@ export class ListComponent implements OnInit {
     this.selectedNumber = this.nowDisplayData.filter(item => this.itemsCheckedStatus[item.id]).length;
   }
 
-  currentPageDataChange($event: ArticleSummary[]): void {
+  currentPageDataChange($event: postSummaryModel[]): void {
     this.nowDisplayData = $event;
   }
 
@@ -82,6 +85,23 @@ export class ListComponent implements OnInit {
       this.loading=false;
       this.total=x.data["totalElements"];
       this.nowDisplayData=x.data["content"];
+    })
+  }
+
+  goEditPost(postId:number):void{
+    this.router.navigate(['/article/edit',postId]);
+  }
+
+
+  deletePostById(postId:number):void{
+    this.modalService.confirm({
+      nzTitle:'<i>确认删除吗?</i>',
+      nzOnOk: () => {
+        this.message.info(`the post ${postId} has been deleted.`)
+        // this.postService.deletePostById(postId).subscribe(x=>{
+        //   this.getAllPostSummary();
+        // })
+      }
     })
   }
 }

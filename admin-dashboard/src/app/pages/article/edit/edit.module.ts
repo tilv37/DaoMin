@@ -8,10 +8,11 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 
 
 
+
 @NgModule({
   declarations: [EditComponent],
   imports: [
-    CommonModule,SharedModule,MarkdownModule.forRoot(),FormsModule,NzFormModule
+    CommonModule,SharedModule,MarkdownModule.forRoot(),FormsModule,NzFormModule 
   ]
 })
 export class EditModule { }

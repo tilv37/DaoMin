@@ -40,6 +40,7 @@ export class TagComponent implements OnInit {
       console.log(x.msg);
       this.total=x.data["totalElements"];
       this.tagsInView=x.data["content"];
+      localStorage.setItem("allTags",JSON.stringify(x));
       console.log(this.tagsInView)
     })
       
