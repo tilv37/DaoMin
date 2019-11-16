@@ -27,7 +27,7 @@ export class TagComponent implements OnInit {
   addNewTag(): void {
     this.tagService.addNewTag(this.inputValue).subscribe(
       x => {
-        console.log(x);
+        localStorage.removeItem("allTags");
         this.getAllTags();
       }
     );

@@ -24,8 +24,9 @@ export class CategoryComponent implements OnInit {
 
   addNewCategory():void{
     this.categoryService.addNewCatgory(this.inputValue).subscribe(x=>{
-      console.log(x);
-      this.getAllCategory();
+      if(x.status==true){
+        this.getAllCategory();
+      }
     })
   }
 
