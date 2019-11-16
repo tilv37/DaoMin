@@ -40,6 +40,9 @@ public class TagDslRepo extends AbstractNativeQueryRepo {
     }
 
     public Map<Integer, String> findTagsByPostIds(List<Integer> postIds) {
+        if(postIds.size()==0){
+            return new HashMap<Integer, String>();
+        }
         String queryStr = "select ptr.post_id,te.tag_name from post_tag_relation as ptr left join tag_entity as te on te.id=ptr.tag_id where ptr.post_id in :postIds";
         Map<String,Object> params=new HashMap<>();
         params.put("postIds",postIds);
