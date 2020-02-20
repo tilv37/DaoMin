@@ -12,16 +12,12 @@ import java.util.Date;
  * @date: 8/12/2019
  */
 @Entity
-public class CategoryEntity {
+public class CategoryEntity extends AbstractAuditable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
     private String categoryName;
-
-    private Date createTM;
-
-    private Date modifyTM;
 
     public Integer getId() {
         return id;
@@ -39,19 +35,4 @@ public class CategoryEntity {
         this.categoryName = categoryName;
     }
 
-    public Date getCreateTM() {
-        return createTM;
-    }
-
-    public void setCreateTM(Date createTM) {
-        this.createTM = createTM;
-    }
-
-    public Date getModifyTM() {
-        return modifyTM;
-    }
-
-    public void setModifyTM(Date modifyTM) {
-        this.modifyTM = modifyTM;
-    }
 }

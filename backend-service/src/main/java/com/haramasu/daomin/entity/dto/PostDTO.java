@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: Shuo Ding
@@ -16,9 +17,15 @@ public class PostDTO {
 
     private String title;
 
+    private String titleEn;
+
     private String summary;
 
     private String content;
 
     private Date createTM;
+
+    private Integer categoryId;
+
+    private List<Integer> tagIds;
 }

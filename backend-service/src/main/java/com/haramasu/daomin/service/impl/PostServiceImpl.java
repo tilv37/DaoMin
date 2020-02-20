@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -40,7 +39,6 @@ public class PostServiceImpl implements PostService{
     public PostEntity addNewPost(PostDTO postDTO) {
         PostEntity postEntity=new PostEntity();
         BeanUtils.copyProperties(postDTO,postEntity);
-        postEntity.setTitleUrl("/test");
         return postRepo.save(postEntity);
     }
 

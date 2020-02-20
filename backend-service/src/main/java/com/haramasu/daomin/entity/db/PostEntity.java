@@ -1,7 +1,8 @@
 package com.haramasu.daomin.entity.db;
 
 import com.haramasu.daomin.entity.viewo.CategoryVO;
-import com.haramasu.daomin.entity.viewo.TagVO;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -27,7 +28,8 @@ import java.util.Set;
 }
 )
 @Entity
-public class PostEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class PostEntity{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -35,16 +37,17 @@ public class PostEntity {
 
     private String title;
 
-    private String titleUrl;
+    @Column(unique = true)
+    private String titleEn;
 
     private String summary;
-
     @Lob
     private String content;
 
-    private Date createTM;
+    private Date createTime;
 
-    private Date modifyTM;
+    @LastModifiedDate
+    private Date modifyTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cate_id")
@@ -90,27 +93,43 @@ public class PostEntity {
         this.content = content;
     }
 
-    public Date getCreateTM() {
-        return createTM;
+    public String getTitleEn() {
+        return titleEn;
     }
 
-    public void setCreateTM(Date createTM) {
-        this.createTM = createTM;
+    public void setTitleEn(String titleEn) {
+        this.titleEn = titleEn;
     }
 
-    public Date getModifyTM() {
-        return modifyTM;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setModifyTM(Date modifyTM) {
-        this.modifyTM = modifyTM;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public String getTitleUrl() {
-        return titleUrl;
+    public CategoryEntity getCategoryEntity() {
+        return categoryEntity;
     }
 
-    public void setTitleUrl(String titleUrl) {
-        this.titleUrl = titleUrl;
+    public void setCategoryEntity(CategoryEntity categoryEntity) {
+        this.categoryEntity = categoryEntity;
+    }
+
+    public Set<TagEntity> getTagEntities() {
+        return tagEntities;
+    }
+
+    public void setTagEntities(Set<TagEntity> tagEntities) {
+        this.tagEntities = tagEntities;
+    }
+
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
     }
 }

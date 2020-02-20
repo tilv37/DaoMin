@@ -11,13 +11,12 @@ import com.haramasu.daomin.repo.dsl.TagDslRepo;
 import com.haramasu.daomin.service.TagService;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,8 +46,6 @@ public class TagServiceImpl implements TagService {
             return ResponseDTO.error("该标签已存在，请更换");
         }
         TagEntity tagEntity=new TagEntity();
-        tagEntity.setCreateTM(new Date());
-        tagEntity.setModifyTM(new Date());
         tagEntity.setTagName(tagName);
         TagEntity tagEntity1 = tagRepo.save(tagEntity);
         return ResponseDTO.success(tagEntity1);

@@ -3,7 +3,6 @@ package com.haramasu.daomin.repo.dsl;
 import com.haramasu.daomin.repo.TagRepo;
 import com.haramasu.daomin.repo.impl.AbstractNativeQueryRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import io.swagger.models.auth.In;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**

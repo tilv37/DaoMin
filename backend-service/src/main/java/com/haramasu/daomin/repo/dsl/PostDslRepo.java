@@ -39,7 +39,7 @@ public class PostDslRepo {
         QueryResults<Tuple> tupleQueryResults = jpaQueryFactory.select(
                 postEntity.id,
                 postEntity.title,
-                postEntity.createTM,
+                postEntity.createTime,
                 categoryEntity.categoryName
         )
                 .from(postEntity)
@@ -55,7 +55,7 @@ public class PostDslRepo {
                         .id(tuple.get(postEntity.id))
                         .title(tuple.get(postEntity.title))
                         .category(tuple.get(categoryEntity.categoryName))
-                        .createTM(tuple.get(postEntity.createTM))
+                        .createTM(tuple.get(postEntity.createTime))
                         .build()).collect(Collectors.toList());
         return new PageImpl<>(postSummaryVOList,pageable,tupleQueryResults.getTotal());
     }

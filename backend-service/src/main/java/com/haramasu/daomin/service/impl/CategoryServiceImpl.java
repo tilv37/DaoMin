@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,9 +23,9 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    CategoryRepo categoryRepo;
+    private CategoryRepo categoryRepo;
     @Autowired
-    CategoryDslRepo categoryDslRepo;
+    private CategoryDslRepo categoryDslRepo;
 
     @Override
     public ResponseDTO<CategoryEntity> addNewCategory(String categoryName) {
@@ -35,8 +34,6 @@ public class CategoryServiceImpl implements CategoryService {
         }
         CategoryEntity categoryEntity=new CategoryEntity();
         categoryEntity.setCategoryName(categoryName);
-        categoryEntity.setCreateTM(new Date());
-        categoryEntity.setModifyTM(new Date());
         CategoryEntity categoryEntity1 = categoryRepo.save(categoryEntity);
         return ResponseDTO.success(categoryEntity1);
     }
