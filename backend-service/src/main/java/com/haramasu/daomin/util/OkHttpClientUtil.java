@@ -63,6 +63,7 @@ public class OkHttpClientUtil {
                 return response.body().string();
             }
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error(ExceptionUtils.getStackTrace(e));
         } finally {
             if (response != null) {

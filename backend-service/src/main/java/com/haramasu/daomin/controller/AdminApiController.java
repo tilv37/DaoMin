@@ -11,14 +11,12 @@ import com.haramasu.daomin.entity.viewo.TagVO;
 import com.haramasu.daomin.service.CategoryService;
 import com.haramasu.daomin.service.PostService;
 import com.haramasu.daomin.service.TagService;
+import com.haramasu.daomin.service.TranslateService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author: Shuo Ding
@@ -35,6 +33,8 @@ public class AdminApiController {
     private CategoryService categoryService;
     @Autowired
     private TagService tagService;
+    @Autowired
+    private TranslateService translateService;
 
     @GetMapping(value = "tags")
     public ResponseDTO<Page<TagVO>> getTags(@RequestParam(name = "pageNo",defaultValue = "0")int pageNo,
@@ -80,5 +80,15 @@ public class AdminApiController {
     public ResponseDTO<String> addNewPost(@RequestBody PostDTO postDTO){
         PostEntity postEntity = postService.addNewPost(postDTO);
         return ResponseDTO.success();
+    }
+
+    @GetMapping(value = "translate")
+    public ResponseDTO<String> translate(String q){
+        String translate = translateService.translate(q);
+        if(StringUtils.isNotBlank(translate)){
+            String replace = StringUtils.replace(translate, " ", "-");
+            return ResponseDTO.success(replace);
+        }
+        return ResponseDTO.success(translate);
     }
 }

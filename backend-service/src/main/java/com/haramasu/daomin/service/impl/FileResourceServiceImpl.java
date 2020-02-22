@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
@@ -78,6 +79,18 @@ public class FileResourceServiceImpl implements ResourceService {
             }
         } catch (MalformedURLException e) {
             throw new FileNotFoundException("文件无法读取:"+fileName);
+        }
+    }
+
+    @Override
+    public byte[] loadAsByteResource(String fileName) throws FileNotFoundException {
+        try {
+            Path file = load(fileName);
+            Resource resource = new UrlResource(file.toUri());
+            byte[] bytes = StreamUtils.copyToByteArray(resource.getInputStream());
+            return bytes;
+        }catch (Exception ex){
+            throw new FileNotFoundException("图片无法读取:"+fileName);
         }
     }
 }

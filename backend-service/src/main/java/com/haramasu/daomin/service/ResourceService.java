@@ -20,4 +20,6 @@ public interface ResourceService {
     Path load(String fileName);
 
     Resource loadAsResource(String fileName) throws FileNotFoundException;
+
+    byte[] loadAsByteResource(String fileName) throws FileNotFoundException;
 }

@@ -7,6 +7,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.haramasu.daomin.service.TranslateService;
 import com.haramasu.daomin.util.OkHttpClientUtil;
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +39,7 @@ public class BaiduTranslateServiceImpl implements TranslateService {
      * @param sourceContent
      * @return
      */
+    @SneakyThrows
     @Override
     public String translate(String sourceContent) {
         Map<String,String> params=new HashMap<>();
@@ -55,7 +57,7 @@ public class BaiduTranslateServiceImpl implements TranslateService {
             JSONObject jsonObject = JSONUtil.parseObj(responseStr);
             String error_code = jsonObject.getStr("error_code");
             if(StringUtils.isNotBlank(error_code)){
-                return "";
+                throw  new Exception(jsonObject.toString());
             }
             JSONArray trans_result = jsonObject.getJSONArray("trans_result");
             return trans_result.getJSONObject(0).getStr("dst");
