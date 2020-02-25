@@ -16,10 +16,6 @@ export class TagAdminServiceService {
   }
 
   getAllTage(pageNo: number = 0, pageSize: number = 10): Observable<ResponseDTOModel> {
-    let tags=JSON.parse(localStorage.getItem("allTags"));
-    if(tags){
-      return of(tags);
-    }
     return this.http.get<ResponseDTOModel>('http://127.0.0.1:8080/api/admin/v1/tags',
       {
         params: new HttpParams().append("pageNo", `${pageNo}`).append("pageSize", `${pageSize}`)

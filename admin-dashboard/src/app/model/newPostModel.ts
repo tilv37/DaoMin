@@ -1,8 +1,9 @@
 export class NewPostModel{
     title:string;
+    titleEn:string;
     summary:string;
     content:string;
-    createTM:Date;
-    tag:string;
-    category:string;
+    createTime:Date;
+    tagIds:string;
+    categoryId:string;
 }
