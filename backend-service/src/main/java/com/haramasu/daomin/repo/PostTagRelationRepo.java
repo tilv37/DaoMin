@@ -1,6 +1,6 @@
 package com.haramasu.daomin.repo;
 
-import com.haramasu.daomin.entity.viewo.TagVO;
+import com.haramasu.daomin.entity.vos.TagVO;
 import org.springframework.data.domain.Page;
 
 public interface PostTagRelationRepo {

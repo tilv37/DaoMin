@@ -1,6 +1,7 @@
 package com.haramasu.daomin.entity.db;
 
-import com.haramasu.daomin.entity.viewo.TagVO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.haramasu.daomin.entity.vos.TagVO;
 
 import javax.persistence.*;
 import java.util.List;
@@ -33,6 +34,7 @@ public class TagEntity extends AbstractAuditable {
     private String tagName;
 
     @ManyToMany(mappedBy = "tagEntities",fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<PostEntity> postEntityList;
 
     public Integer getId() {

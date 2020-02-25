@@ -5,18 +5,22 @@ import com.haramasu.daomin.entity.db.PostEntity;
 import com.haramasu.daomin.entity.db.TagEntity;
 import com.haramasu.daomin.entity.dto.PostDTO;
 import com.haramasu.daomin.entity.dto.ResponseDTO;
-import com.haramasu.daomin.entity.viewo.CategoryVO;
-import com.haramasu.daomin.entity.viewo.PostSummaryVO;
-import com.haramasu.daomin.entity.viewo.TagVO;
+import com.haramasu.daomin.entity.vos.CategoryVO;
+import com.haramasu.daomin.entity.vos.PostSummaryVO;
+import com.haramasu.daomin.entity.vos.TagVO;
 import com.haramasu.daomin.service.CategoryService;
 import com.haramasu.daomin.service.PostService;
 import com.haramasu.daomin.service.TagService;
 import com.haramasu.daomin.service.TranslateService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author: Shuo Ding
@@ -70,6 +74,17 @@ public class AdminApiController {
         return ResponseDTO.success(allPostSummary);
     }
 
+    @GetMapping(value = "post/{postId}")
+    public ResponseDTO<PostDTO> getOnePostById(@PathVariable(name = "postId") Integer postId){
+        PostEntity oneById = postService.getOneById(postId);
+        PostDTO dto = PostDTO.builder().categoryId(oneById.getCategoryEntity().getId()).build();
+        BeanUtils.copyProperties(oneById,dto);
+        List<Integer> tagIds = oneById.getTagEntities().stream().map(TagEntity::getId).collect(Collectors.toList());
+        dto.setTagIds(tagIds);
+
+        return ResponseDTO.success(dto);
+    }
+
     @DeleteMapping(value = "post/{postId}")
     public ResponseDTO<String> deletePost(@PathVariable(name = "postId") Integer postId){
         postService.deletePostById(postId);
@@ -79,6 +94,12 @@ public class AdminApiController {
     @PostMapping(value = "post")
     public ResponseDTO<String> addNewPost(@RequestBody PostDTO postDTO){
         PostEntity postEntity = postService.addNewPost(postDTO);
+        return ResponseDTO.success();
+    }
+
+    @PutMapping(value = "post/{postId}")
+    public ResponseDTO<String>  modifyPost(@PathVariable(name = "postId") Integer postId,@RequestBody PostDTO postDTO){
+        PostEntity postEntity = postService.modifyPost(postId, postDTO);
         return ResponseDTO.success();
     }
 

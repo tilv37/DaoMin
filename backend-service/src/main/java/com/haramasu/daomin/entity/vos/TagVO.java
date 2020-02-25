@@ -1,4 +1,4 @@
-package com.haramasu.daomin.entity.viewo;
+package com.haramasu.daomin.entity.vos;
 
 /**
  * @author: Shuo Ding

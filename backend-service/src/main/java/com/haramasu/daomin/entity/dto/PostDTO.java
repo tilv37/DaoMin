@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author: Shuo Ding
- * @description:
+ * @description: 编辑文章时候用的
  * @date: 8/12/2019
  */
 @Data
@@ -23,7 +23,7 @@ public class PostDTO {
 
     private String content;
 
-    private Date createTM;
+    private Date createTime;
 
     private Integer categoryId;
 

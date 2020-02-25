@@ -2,7 +2,7 @@ package com.haramasu.daomin.repo.dsl;
 
 import com.haramasu.daomin.entity.db.QCategoryEntity;
 import com.haramasu.daomin.entity.db.QPostEntity;
-import com.haramasu.daomin.entity.viewo.CategoryVO;
+import com.haramasu.daomin.entity.vos.CategoryVO;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;

@@ -2,7 +2,7 @@ package com.haramasu.daomin.repo.dsl;
 
 import com.haramasu.daomin.entity.db.QCategoryEntity;
 import com.haramasu.daomin.entity.db.QPostEntity;
-import com.haramasu.daomin.entity.viewo.PostSummaryVO;
+import com.haramasu.daomin.entity.vos.PostSummaryVO;
 import com.haramasu.daomin.repo.PostRepo;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
@@ -55,7 +55,7 @@ public class PostDslRepo {
                         .id(tuple.get(postEntity.id))
                         .title(tuple.get(postEntity.title))
                         .category(tuple.get(categoryEntity.categoryName))
-                        .createTM(tuple.get(postEntity.createTime))
+                        .createTime(tuple.get(postEntity.createTime))
                         .build()).collect(Collectors.toList());
         return new PageImpl<>(postSummaryVOList,pageable,tupleQueryResults.getTotal());
     }

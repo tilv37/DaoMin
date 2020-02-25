@@ -1,6 +1,7 @@
 package com.haramasu.daomin.entity.db;
 
-import com.haramasu.daomin.entity.viewo.CategoryVO;
+import com.fasterxml.jackson.annotation.*;
+import com.haramasu.daomin.entity.vos.CategoryVO;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -53,12 +54,13 @@ public class PostEntity{
     @JoinColumn(name = "cate_id")
     private CategoryEntity categoryEntity;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "post_tag_relation",
             joinColumns = @JoinColumn(name = "post_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id",referencedColumnName = "id")
     )
+    @JsonManagedReference
     private Set<TagEntity> tagEntities;
 
     public Integer getId() {

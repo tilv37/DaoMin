@@ -1,4 +1,4 @@
-package com.haramasu.daomin.entity.viewo;
+package com.haramasu.daomin.entity.vos;
 
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +17,7 @@ public class PostSummaryVO {
 
     private String title;
 
-    private Date createTM;
+    private Date createTime;
 
     private String tags;
 

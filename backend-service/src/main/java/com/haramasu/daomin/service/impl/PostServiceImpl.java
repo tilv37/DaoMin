@@ -1,9 +1,13 @@
 package com.haramasu.daomin.service.impl;
 
+import com.haramasu.daomin.entity.db.CategoryEntity;
 import com.haramasu.daomin.entity.db.PostEntity;
+import com.haramasu.daomin.entity.db.TagEntity;
 import com.haramasu.daomin.entity.dto.PostDTO;
-import com.haramasu.daomin.entity.viewo.PostSummaryVO;
+import com.haramasu.daomin.entity.vos.PostSummaryVO;
+import com.haramasu.daomin.repo.CategoryRepo;
 import com.haramasu.daomin.repo.PostRepo;
+import com.haramasu.daomin.repo.TagRepo;
 import com.haramasu.daomin.repo.dsl.PostDslRepo;
 import com.haramasu.daomin.repo.dsl.TagDslRepo;
 import com.haramasu.daomin.service.PostService;
@@ -34,6 +38,10 @@ public class PostServiceImpl implements PostService{
     private PostDslRepo postDslRepo;
     @Autowired
     private TagDslRepo tagDslRepo;
+    @Autowired
+    private TagRepo tagRepo;
+    @Autowired
+    private CategoryRepo categoryRepo;
 
     @Override
     public PostEntity addNewPost(PostDTO postDTO) {
@@ -43,8 +51,37 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
+    public PostEntity modifyPost(Integer postId, PostDTO postDTO) {
+        PostEntity postEntity = postRepo.findById(postId).get();
+        BeanUtils.copyProperties(postDTO,postEntity);
+
+        postEntity.getTagEntities().clear();
+        for (Integer tagId : postDTO.getTagIds()) {
+            TagEntity tagEntity = tagRepo.findById(tagId).get();
+
+            if(!postEntity.getTagEntities().contains(tagEntity)){
+                postEntity.getTagEntities().add(tagEntity);
+            }
+        }
+
+        if(postDTO.getCategoryId()!=null){
+            CategoryEntity categoryEntity = categoryRepo.findById(postDTO.getCategoryId()).get();
+            if(categoryEntity!=null){
+                postEntity.setCategoryEntity(categoryEntity);
+            }
+        }
+        return postRepo.save(postEntity);
+    }
+
+    @Override
+    public PostEntity getOneById(int postId) {
+        return postRepo.findById(postId).get();
+    }
+
+    @Override
     public Page<PostEntity> getAllPost(int pageNo, int pageSize) {
-        return  postRepo.findAll(PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.ASC, "createTM")));
+        Page<PostEntity> postEntities = postRepo.findAll(PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.ASC, "createTime")));
+        return postEntities;
     }
 
     @Override

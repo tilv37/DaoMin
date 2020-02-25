@@ -2,10 +2,8 @@ package com.haramasu.daomin.service;
 
 import com.haramasu.daomin.entity.db.TagEntity;
 import com.haramasu.daomin.entity.dto.ResponseDTO;
-import com.haramasu.daomin.entity.viewo.TagVO;
+import com.haramasu.daomin.entity.vos.TagVO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 

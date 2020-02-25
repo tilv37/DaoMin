@@ -2,7 +2,7 @@ package com.haramasu.daomin.service;
 
 import com.haramasu.daomin.entity.db.CategoryEntity;
 import com.haramasu.daomin.entity.dto.ResponseDTO;
-import com.haramasu.daomin.entity.viewo.CategoryVO;
+import com.haramasu.daomin.entity.vos.CategoryVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

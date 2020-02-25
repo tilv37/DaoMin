@@ -1,4 +1,4 @@
-package com.haramasu.daomin.entity.viewo;
+package com.haramasu.daomin.entity.vos;
 
 import lombok.Builder;
 import lombok.Data;

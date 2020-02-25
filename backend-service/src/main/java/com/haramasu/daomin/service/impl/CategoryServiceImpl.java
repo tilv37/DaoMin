@@ -2,7 +2,7 @@ package com.haramasu.daomin.service.impl;
 
 import com.haramasu.daomin.entity.db.CategoryEntity;
 import com.haramasu.daomin.entity.dto.ResponseDTO;
-import com.haramasu.daomin.entity.viewo.CategoryVO;
+import com.haramasu.daomin.entity.vos.CategoryVO;
 import com.haramasu.daomin.repo.CategoryRepo;
 import com.haramasu.daomin.repo.dsl.CategoryDslRepo;
 import com.haramasu.daomin.service.CategoryService;

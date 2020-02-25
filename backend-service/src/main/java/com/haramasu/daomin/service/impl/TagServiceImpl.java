@@ -4,7 +4,7 @@ import com.haramasu.daomin.entity.db.QTagEntity;
 import com.haramasu.daomin.entity.db.TagEntity;
 import com.haramasu.daomin.entity.dto.ResponseDTO;
 import com.haramasu.daomin.entity.dto.TagDTO;
-import com.haramasu.daomin.entity.viewo.TagVO;
+import com.haramasu.daomin.entity.vos.TagVO;
 import com.haramasu.daomin.repo.PostTagRelationRepo;
 import com.haramasu.daomin.repo.TagRepo;
 import com.haramasu.daomin.repo.dsl.TagDslRepo;
