@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryModel } from "../../model/catagoryModel";
 import { ResponseDTOModel } from "../../model/reponseDTOModel";
 import { CategoryAdminServiceService } from "../../service/category-admin-service.service";
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-category',
@@ -16,18 +17,24 @@ export class CategoryComponent implements OnInit {
   total:number=1;
   loading = false;
 
-  constructor(private categoryService:CategoryAdminServiceService) { }
+  constructor(private categoryService:CategoryAdminServiceService,
+    private message: NzMessageService) { }
 
   ngOnInit() {
     this.getAllCategory();
   }
 
   addNewCategory():void{
-    this.categoryService.addNewCatgory(this.inputValue).subscribe(x=>{
-      if(x.status==true){
-        this.getAllCategory();
-      }
-    })
+    if(this.inputValue){
+      this.categoryService.addNewCatgory(this.inputValue).subscribe(x=>{
+        if(x.status==true){
+          this.getAllCategory();
+          this.inputValue='';
+        }
+      })
+    }else{
+      this.message.info("请先输入内容");
+    }
   }
 
   getAllCategory():void{

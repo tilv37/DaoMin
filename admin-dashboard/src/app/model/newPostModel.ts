@@ -4,6 +4,6 @@ export class NewPostModel{
     summary:string;
     content:string;
     createTime:Date;
-    tagIds:string;
-    categoryId:string;
+    tags:string[];
+    category:string;
 }

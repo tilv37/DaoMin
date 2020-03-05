@@ -5,6 +5,11 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { postSummaryModel } from "../../../model/postSummaryModel";
 import { PostAdminService } from "../../../service/post-admin.service";
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NewPostModel } from "../../../model/newPostModel";
+import { TagAdminServiceService } from "../../../service/tag-admin-service.service";
+import { CategoryAdminServiceService } from "src/app/service/category-admin-service.service";
+import { ResponseDTOModel } from "../../../model/reponseDTOModel";
+
 
 @Component({
   selector: 'app-list',
@@ -27,14 +32,32 @@ export class ListComponent implements OnInit {
   loading = false;
   postInView:postSummaryModel[] =[]; 
 
+  editVisible:boolean = false;
+  previewVisible:boolean=false;
+  newPost:NewPostModel=new NewPostModel();
+  tagNames:string[]=[];
+  cateNames:string[]=[];
+  dateFormat='yyyy-MM-dd HH:mm:ss';
+
   constructor(private message: NzMessageService,
     private router: Router,
     private postService:PostAdminService,
-    private modalService: NzModalService) {
+    private modalService: NzModalService,
+    private tagService:TagAdminServiceService,
+    private cateService:CategoryAdminServiceService) {
    }
 
   ngOnInit() {
     this.getAllPostSummary();
+    this.tagService.getAllTagNames().subscribe((x:ResponseDTOModel)=>{
+      this.tagNames=x.data;
+    });
+
+    this.cateService.getAllCategoryNames().subscribe(
+      (x:ResponseDTOModel)=>{
+        this.cateNames=x.data;
+      }
+    )
   }
 
   showDeleteModal(){
@@ -103,5 +126,30 @@ export class ListComponent implements OnInit {
         // })
       }
     })
+  }
+
+  openEditDrawer(): void {
+    this.editVisible = true;
+  }
+
+  closeEditDrawer(): void {
+    this.editVisible = false;
+  }
+
+  openPreview():void{
+    console.log(this.newPost);
+    this.previewVisible=true;
+  }
+
+  closePreview():void{
+    this.previewVisible=false;
+  }
+
+  saveOrupdatePost(){
+    this.postService.addOne(this.newPost).subscribe(
+      x=>{
+        this.message.info("保存成功")
+      }
+    )
   }
 }

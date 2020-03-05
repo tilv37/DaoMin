@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TagAdminServiceService } from "../../service/tag-admin-service.service";
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { TagModel } from "../../model/tagModel";
 import { ResponseDTOModel } from "../../model/reponseDTOModel";
 
@@ -17,7 +18,8 @@ export class TagComponent implements OnInit {
   total:number=1;
   loading = false;
 
-  constructor(private tagService: TagAdminServiceService) { }
+  constructor(private tagService: TagAdminServiceService,
+    private message: NzMessageService) { }
 
   ngOnInit() {
     // this.inputValue='dasdasd';
@@ -25,12 +27,17 @@ export class TagComponent implements OnInit {
   }
 
   addNewTag(): void {
-    this.tagService.addNewTag(this.inputValue).subscribe(
-      x => {
-        localStorage.removeItem("allTags");
-        this.getAllTags();
-      }
-    );
+    if(this.inputValue){
+      this.tagService.addNewTag(this.inputValue).subscribe(
+        x => {
+          localStorage.removeItem("allTags");
+          this.getAllTags();
+          this.inputValue='';
+        }
+      );
+    }else{
+      this.message.info("请先输入内容");
+    }
   }
 
   getAllTags():void{

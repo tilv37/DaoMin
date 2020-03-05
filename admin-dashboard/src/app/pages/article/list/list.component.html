@@ -1,58 +1,268 @@
 <div class="operateArea" nz-row nzGutter="32">
-    <div nz-col style="width: 300px;" nzSpan="4">
-        <!-- <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+  <div nz-col style="width: 300px;" nzSpan="4">
+    <!-- <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
             <input type="text" nz-input placeholder="搜索标题" />
         </nz-input-group>
         <ng-template #suffixIconButton>
             <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
         </ng-template> -->
-        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-            <input type="text" nz-input placeholder="input search text" />
-        </nz-input-group>
-        <ng-template #suffixIconButton>
-            <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
-        </ng-template>
-    </div>
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input type="text" nz-input placeholder="input search text" />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch>
+        <i nz-icon nzType="search"></i>
+      </button>
+    </ng-template>
+  </div>
 
-    <button nz-col nz-button nzType="danger" nzSpan="4" (click)="showDeleteModal()"><i nz-icon
-            nzType="delete"></i>删除</button>
-    <nz-modal [(nzVisible)]="isVisible" nzTitle="提示" nzContent="确认删除吗？" (nzOnCancel)="deleteCancel()"
-        (nzOnOk)="deleteConfirm()" [nzOkLoading]="isOkLoading"></nz-modal>
-    <button nz-button nzType="primary" (click)="gotoUrl()"><i nz-icon nzType="plus"></i>新增文章</button>
-    <span *ngIf="selectedNumber">已选 {{selectedNumber}} 个文章</span>
+  <button
+    nz-col
+    nz-button
+    nzType="danger"
+    nzSpan="4"
+    (click)="showDeleteModal()"
+  >
+    <i nz-icon nzType="delete"></i>删除
+  </button>
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="提示"
+    nzContent="确认删除吗？"
+    (nzOnCancel)="deleteCancel()"
+    (nzOnOk)="deleteConfirm()"
+    [nzOkLoading]="isOkLoading"
+  ></nz-modal>
+  <button nz-button nzType="primary" (click)="openEditDrawer()">
+    <i nz-icon nzType="plus"></i>新增文章
+  </button>
+  <span *ngIf="selectedNumber">已选 {{ selectedNumber }} 个文章</span>
 </div>
 <div nz-row>
-    <nz-table #basicTable [nzData]="nowDisplayData" [nzLoading]="loading" [nzTotal]="total" [nzFrontPagination]="false"
-        [(nzPageIndex)]="pageNo" [(nzPageSize)]="pageSize" (nzPageIndexChange)="getAllPostSummary()" (nzCurrentPageDataChange)="currentPageDataChange($event)">
-        <thead>
-            <tr>
-                <th nzShowCheckbox [(nzChecked)]=isAllChecked (nzCheckedChange)="checkedChangeAll($event)"></th>
-                <th>ID</th>
-                <th>标题</th>
-                <th>分类</th>
-                <th>标签</th>
-                <th>时间</th>
-                <th nzRight="0px" nzWidth="10% ">操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let data of basicTable.data">
-                <td nzShowCheckbox [(nzChecked)]="itemsCheckedStatus[data.id]"
-                    (nzCheckedChange)="refreshStatus($event)"></td>
-                <td>{{data.id}}</td>
-                <td>{{data.title}}</td>
-                <td>{{data.category}}</td>
-                <td>{{data.tags}}</td>
-                <td>{{data.createTM}}</td>
-                <td>
-                    <a title="编辑文章" (click)='goEditPost(data.id)'><i nz-icon [nzType]="'edit'"></i></a>
-                    <nz-divider nzType="vertical"></nz-divider>
-                    <a title="删除文章" (click)='deletePostById(data.id)'><i nz-icon [nzType]="'delete'"></i></a>
-                    <nz-divider nzType="vertical"></nz-divider>
-                    <a title="预览文章"><i nz-icon [nzType]="'read'"></i></a>
-                </td>
-            </tr>
-        </tbody>
-    </nz-table>
+  <nz-table
+    #basicTable
+    [nzData]="nowDisplayData"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [nzFrontPagination]="false"
+    [(nzPageIndex)]="pageNo"
+    [(nzPageSize)]="pageSize"
+    (nzPageIndexChange)="getAllPostSummary()"
+    (nzCurrentPageDataChange)="currentPageDataChange($event)"
+  >
+    <thead>
+      <tr>
+        <th
+          nzShowCheckbox
+          [(nzChecked)]="isAllChecked"
+          (nzCheckedChange)="checkedChangeAll($event)"
+        ></th>
+        <th>ID</th>
+        <th>标题</th>
+        <th>分类</th>
+        <th>标签</th>
+        <th>时间</th>
+        <th nzRight="0px" nzWidth="10% ">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td
+          nzShowCheckbox
+          [(nzChecked)]="itemsCheckedStatus[data.id]"
+          (nzCheckedChange)="refreshStatus($event)"
+        ></td>
+        <td>{{ data.id }}</td>
+        <td>{{ data.title }}</td>
+        <td>{{ data.category }}</td>
+        <td>{{ data.tags }}</td>
+        <td>{{ data.createTime}}</td>
+        <td>
+          <a title="编辑文章" (click)="openEditDrawer()"
+            ><i nz-icon [nzType]="'edit'"></i
+          ></a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a title="删除文章" (click)="deletePostById(data.id)"
+            ><i nz-icon [nzType]="'delete'"></i
+          ></a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a title="预览文章"><i nz-icon [nzType]="'read'"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
 
+  <nz-drawer
+    [nzBodyStyle]="{
+      height: 'calc(100% - 110px)',
+      overflow: 'auto',
+      'padding-bottom': '53px'
+    }"
+    [nzMaskClosable]="false"
+    [nzWidth]="720"
+    [nzVisible]="editVisible"
+    nzTitle="Create"
+    (nzOnClose)="closeEditDrawer()"
+  >
+    <form nz-form>
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-label>标题</nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                placeholder="please enter title"
+                require
+                autocomplete="off"
+                [(ngModel)]="newPost.title"
+                name="title"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-label>标题-En</nz-form-label>
+            <nz-form-control>
+              <input
+                nz-input
+                placeholder="please enter title"
+                autocomplete="off"
+                [(ngModel)]="newPost.titleEn"
+                name="titleEn"
+              />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
+          <nz-form-item>
+            <nz-form-label>Description</nz-form-label>
+            <nz-form-control>
+              <textarea
+                nz-input
+                placeholder="please enter url description"
+                [nzAutosize]="{ minRows: 2, maxRows: 4 }"
+                name="summary"
+                [(ngModel)]="newPost.summary"
+              ></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label>分类</nz-form-label>
+            <nz-form-control>
+              <nz-select
+                nzPlaceHolder="Please select a category"
+                [(ngModel)]="newPost.category"
+                [ngModelOptions]="{standalone: true}"
+                >
+                <nz-option
+                  *ngFor="let option of cateNames"
+                  [nzLabel]="option"
+                  [nzValue]="option"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label>标签</nz-form-label>
+            <nz-form-control>
+              <nz-select
+                [nzMaxTagCount]="3"
+                style="width: 100%"
+                name="tag"
+                nzMode="multiple"
+                nzPlaceHolder="Please select"
+                [(ngModel)]="newPost.tags"
+              >
+                <nz-option
+                  *ngFor="let option of tagNames"
+                  [nzLabel]="option"
+                  [nzValue]="option"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label>DateTime</nz-form-label>
+            <nz-form-control>
+              <nz-date-picker
+                [nzFormat]="dateFormat"
+                nzShowTime
+                name="createTM"
+                [(ngModel)]="newPost.createTime"
+              ></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="24">
+          <h2>正文编辑:</h2>
+          <!-- <nz-divider nzText="编辑" nzOrientation="left"></nz-divider> -->
+          <textarea
+            nzAutosize
+            [nzAutosize]="{ minRows: 25 }"
+            nz-input
+            [(ngModel)]="newPost.content"
+            [ngModelOptions]="{ standalone: true }"
+          ></textarea>
+        </div>
+      </div>
+    </form>
+    <div class="footer">
+      <button
+        type="button"
+        (click)="closeEditDrawer()"
+        class="ant-btn"
+        style="margin-right: 8px;"
+      >
+        <span>取消</span>
+      </button>
+      <button
+        type="button"
+        (click)="saveOrupdatePost()"
+        class="ant-btn ant-btn-primary"
+        style="margin-right: 8px;"
+      >
+        <span>提交</span>
+      </button>
+      <button
+        type="button"
+        (click)="saveOrupdatePost()"
+        class="ant-btn ant-btn-dashed"
+      >
+        <span>预览</span>
+      </button>
+    </div>
+  </nz-drawer>
 </div>
+
+<nz-modal
+  [(nzVisible)]="previewVisible"
+  nzTitle="预览文章"
+  nzMask
+  nzMaskClosable="false"
+  (nzOnCancel)="closePreview()"
+  nzWidth="960"
+  [nzStyle]="{ top: '20px' }"
+>
+  <markdown [data]="newPost.content" class="markdown-body"></markdown>
+  <div *nzModalFooter>
+    <button nz-button nzType="primary" (click)="closePreview()">确定</button>
+  </div>
+</nz-modal>

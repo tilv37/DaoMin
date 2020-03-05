@@ -21,4 +21,8 @@ export class CategoryAdminServiceService {
         params: new HttpParams().append("pageNo", `${pageNo}`).append("pageSize", `${pageSize}`)
       });
   }
+
+  getAllCategoryNames(){
+    return this.http.get<ResponseDTOModel>('http://127.0.0.1:8080/api/admin/v1/categoryNames')
+  }
 }
