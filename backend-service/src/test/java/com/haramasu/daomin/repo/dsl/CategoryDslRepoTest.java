@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 public class CategoryDslRepoTest extends Daomin3ApplicationTests {
 
     @Autowired
@@ -13,5 +15,11 @@ public class CategoryDslRepoTest extends Daomin3ApplicationTests {
     @Test
     public void findWithPostNo() {
         categoryDslRepo.findWithPostNo(PageRequest.of(0,10));
+    }
+
+    @Test
+    public void findAllNames(){
+        List<String> allCategoryNames = categoryDslRepo.findAllCategoryNames();
+        System.out.println(allCategoryNames);
     }
 }

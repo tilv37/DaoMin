@@ -1,5 +1,6 @@
 package com.haramasu.daomin.repo.dsl;
 
+import com.haramasu.daomin.entity.db.QTagEntity;
 import com.haramasu.daomin.repo.TagRepo;
 import com.haramasu.daomin.repo.impl.AbstractNativeQueryRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -73,6 +74,15 @@ public class TagDslRepo extends AbstractNativeQueryRepo {
             stringMap.put(x.getKey(),sb.toString());
         });
         return stringMap;
+    }
+
+    public List<String> findAllTagNames(){
+        QTagEntity tagEntity=QTagEntity.tagEntity;
+        List<String> tagNames = jpaQueryFactory.select(tagEntity.tagName)
+                .from(tagEntity)
+                .orderBy(tagEntity.id.asc())
+                .fetch();
+        return tagNames;
     }
 
     class PostIdWithTag{

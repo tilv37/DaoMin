@@ -1,4 +1,4 @@
-package com.haramasu.daomin.controller;
+package com.haramasu.daomin.controller.blog;
 
 import cn.hutool.core.date.DateUtil;
 import com.haramasu.daomin.entity.db.PostEntity;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("api/v1/")
-public class BlogApiController {
+public class PostApiController {
 
     @Autowired
     PostService postService;

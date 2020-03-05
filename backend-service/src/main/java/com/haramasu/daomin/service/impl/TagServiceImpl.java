@@ -77,8 +77,15 @@ public class TagServiceImpl implements TagService {
         return tagVOPage;
     }
 
+    @Override
+    public List<String> getAllTagNames() {
+        return tagDslRepo.findAllTagNames();
+    }
 
-
+    @Override
+    public List<TagEntity> getTagsByNames(List<String> tagNames) {
+        return tagRepo.findAllByTagNameIn(tagNames);
+    }
 
     @Override
     public void dslTest() {

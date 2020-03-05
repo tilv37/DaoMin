@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface CategoryRepo extends JpaRepository<CategoryEntity,Integer> {
 
     long countByCategoryName(String categoryName);
+
 }

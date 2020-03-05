@@ -7,12 +7,14 @@ import com.haramasu.daomin.repo.CategoryRepo;
 import com.haramasu.daomin.repo.dsl.CategoryDslRepo;
 import com.haramasu.daomin.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author: Shuo Ding
@@ -49,6 +51,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public CategoryEntity getCategoryByName(String cateName) {
+        CategoryEntity categoryEntity=new CategoryEntity();
+        categoryEntity.setCategoryName(cateName);
+        Optional<CategoryEntity> one = categoryRepo.findOne(Example.of(categoryEntity));
+        return one.get();
+    }
+
+    @Override
     public boolean isCategoryExist(String categoryName) {
         return categoryRepo.countByCategoryName(categoryName)>0?true:false;
     }
@@ -56,5 +66,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Page<CategoryVO> getCategoryPageable(Pageable pageable) {
         return categoryDslRepo.findWithPostNo(pageable);
+    }
+
+    @Override
+    public List<String> getAllCateNames() {
+        return categoryDslRepo.findAllCategoryNames();
     }
 }

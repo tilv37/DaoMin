@@ -15,6 +15,10 @@ public interface TagService {
 
     List<TagEntity> getAllTags();
 
+    List<String> getAllTagNames();
+
+    List<TagEntity> getTagsByNames(List<String> tagNames);
+
     Page<TagEntity> getTagsPageable(int pageNo,int pageSize);
 
     boolean isTagExist(String tagName);

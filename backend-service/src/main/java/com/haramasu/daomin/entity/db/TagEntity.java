@@ -31,6 +31,7 @@ public class TagEntity extends AbstractAuditable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(unique = true)
     private String tagName;
 
     @ManyToMany(mappedBy = "tagEntities",fetch = FetchType.LAZY)

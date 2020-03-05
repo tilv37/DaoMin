@@ -16,6 +16,10 @@ public interface CategoryService {
 
     List<CategoryEntity> getAllCategory();
 
+    CategoryEntity getCategoryByName(String cateName);
+
+    List<String> getAllCateNames();
+
     boolean isCategoryExist(String categoryName);
 
     Page<CategoryVO> getCategoryPageable(Pageable pageable);

@@ -10,7 +10,10 @@ import com.haramasu.daomin.repo.PostRepo;
 import com.haramasu.daomin.repo.TagRepo;
 import com.haramasu.daomin.repo.dsl.PostDslRepo;
 import com.haramasu.daomin.repo.dsl.TagDslRepo;
+import com.haramasu.daomin.service.CategoryService;
 import com.haramasu.daomin.service.PostService;
+import com.haramasu.daomin.service.TagService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,39 +42,40 @@ public class PostServiceImpl implements PostService{
     private PostDslRepo postDslRepo;
     @Autowired
     private TagDslRepo tagDslRepo;
+
     @Autowired
-    private TagRepo tagRepo;
+    private CategoryService categoryService;
     @Autowired
-    private CategoryRepo categoryRepo;
+    private TagService tagService;
 
     @Override
     public PostEntity addNewPost(PostDTO postDTO) {
         PostEntity postEntity=new PostEntity();
         BeanUtils.copyProperties(postDTO,postEntity);
-        return postRepo.save(postEntity);
+        //开始添加tag和category
+        return modifyPostTagAndCate(postDTO, postEntity);
     }
 
     @Override
     public PostEntity modifyPost(Integer postId, PostDTO postDTO) {
         PostEntity postEntity = postRepo.findById(postId).get();
         BeanUtils.copyProperties(postDTO,postEntity);
-
+        //处理tag和category
         postEntity.getTagEntities().clear();
-        for (Integer tagId : postDTO.getTagIds()) {
-            TagEntity tagEntity = tagRepo.findById(tagId).get();
+        postEntity.setCategoryEntity(null);
+        return modifyPostTagAndCate(postDTO, postEntity);
+    }
 
-            if(!postEntity.getTagEntities().contains(tagEntity)){
-                postEntity.getTagEntities().add(tagEntity);
-            }
+    private PostEntity modifyPostTagAndCate(PostDTO postDTO, PostEntity postEntity) {
+        if(StringUtils.isNotBlank(postDTO.getCategory())){
+            CategoryEntity categoryEntity = categoryService.getCategoryByName(postDTO.getCategory());
+            postEntity.setCategoryEntity(categoryEntity);
         }
-
-        if(postDTO.getCategoryId()!=null){
-            CategoryEntity categoryEntity = categoryRepo.findById(postDTO.getCategoryId()).get();
-            if(categoryEntity!=null){
-                postEntity.setCategoryEntity(categoryEntity);
-            }
+        if(postDTO.getTags()!=null && postDTO.getTags().size()!=0){
+            List<TagEntity> tags = tagService.getTagsByNames(postDTO.getTags());
+            postEntity.setTagEntities(new HashSet<>(tags));
         }
-        return postRepo.save(postEntity);
+            return postRepo.save(postEntity);
     }
 
     @Override

@@ -50,4 +50,13 @@ public class CategoryDslRepo {
         ).collect(Collectors.toList());
         return new PageImpl<>(categoryVOS,pageable,tupleQueryResults.getTotal());
     }
+
+    public List<String> findAllCategoryNames(){
+        QCategoryEntity categoryEntity=QCategoryEntity.categoryEntity;
+        List<String> fetch = jpaQueryFactory.select(categoryEntity.categoryName)
+                .from(categoryEntity)
+                .orderBy(categoryEntity.id.asc())
+                .fetch();
+        return fetch;
+    }
 }

@@ -25,7 +25,7 @@ public class PostDTO {
 
     private Date createTime;
 
-    private Integer categoryId;
+    private String category;
 
-    private List<Integer> tagIds;
+    private List<String> tags;
 }
