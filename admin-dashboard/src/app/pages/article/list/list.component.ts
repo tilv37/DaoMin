@@ -120,10 +120,10 @@ export class ListComponent implements OnInit {
     this.modalService.confirm({
       nzTitle:'<i>确认删除吗?</i>',
       nzOnOk: () => {
-        this.message.info(`the post ${postId} has been deleted.`)
-        // this.postService.deletePostById(postId).subscribe(x=>{
-        //   this.getAllPostSummary();
-        // })
+        this.postService.deletePostById(postId).subscribe(x=>{
+          this.getAllPostSummary();
+          this.message.info(`the post ${postId} has been deleted.`)
+        })
       }
     })
   }
@@ -134,6 +134,7 @@ export class ListComponent implements OnInit {
 
   closeEditDrawer(): void {
     this.editVisible = false;
+    this.newPost=new NewPostModel();
   }
 
   openPreview():void{
@@ -148,8 +149,18 @@ export class ListComponent implements OnInit {
   saveOrupdatePost(){
     this.postService.addOne(this.newPost).subscribe(
       x=>{
-        this.message.info("保存成功")
+        this.message.info("保存成功");
+        this.newPost=new NewPostModel();
       }
     )
+  }
+
+  getTranslte(){
+    if(this.newPost.title){
+      //提交翻译接口
+      this.postService.translate(this.newPost.title).subscribe((x:ResponseDTOModel)=>{
+        this.newPost.titleEn = x.data;
+      })
+    }
   }
 }

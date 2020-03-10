@@ -76,7 +76,7 @@
         <td>{{ data.title }}</td>
         <td>{{ data.category }}</td>
         <td>{{ data.tags }}</td>
-        <td>{{ data.createTime}}</td>
+        <td>{{ data.createTime }}</td>
         <td>
           <a title="编辑文章" (click)="openEditDrawer()"
             ><i nz-icon [nzType]="'edit'"></i
@@ -125,15 +125,18 @@
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="24">
           <nz-form-item>
-            <nz-form-label>标题-En</nz-form-label>
+            <nz-form-label>title-En</nz-form-label>
             <nz-form-control>
-              <input
-                nz-input
-                placeholder="please enter title"
-                autocomplete="off"
-                [(ngModel)]="newPost.titleEn"
-                name="titleEn"
-              />
+              <div nz-row [nzGutter]="8">
+                <div nz-col [nzSpan]="12">
+                  <input nz-input name="titleEn" [(ngModel)]="newPost.titleEn"/>
+                </div>
+                <div nz-col [nzSpan]="12">
+                  <button nz-button (click)="getTranslte($event)">
+                    Get captcha
+                  </button>
+                </div>
+              </div>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -162,8 +165,8 @@
               <nz-select
                 nzPlaceHolder="Please select a category"
                 [(ngModel)]="newPost.category"
-                [ngModelOptions]="{standalone: true}"
-                >
+                [ngModelOptions]="{ standalone: true }"
+              >
                 <nz-option
                   *ngFor="let option of cateNames"
                   [nzLabel]="option"
