@@ -63,6 +63,9 @@ public class PostEntity{
     @JsonManagedReference
     private Set<TagEntity> tagEntities;
 
+    @Basic
+    private String firstImg;
+
     public Integer getId() {
         return id;
     }
@@ -133,5 +136,13 @@ public class PostEntity{
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public String getFirstImg() {
+        return firstImg;
+    }
+
+    public void setFirstImg(String firstImg) {
+        this.firstImg = firstImg;
     }
 }

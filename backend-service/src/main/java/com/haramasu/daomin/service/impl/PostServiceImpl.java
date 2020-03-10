@@ -4,15 +4,15 @@ import com.haramasu.daomin.entity.db.CategoryEntity;
 import com.haramasu.daomin.entity.db.PostEntity;
 import com.haramasu.daomin.entity.db.TagEntity;
 import com.haramasu.daomin.entity.dto.PostDTO;
+import com.haramasu.daomin.entity.dto.PostSummaryAndImageUrl;
 import com.haramasu.daomin.entity.vos.PostSummaryVO;
-import com.haramasu.daomin.repo.CategoryRepo;
 import com.haramasu.daomin.repo.PostRepo;
-import com.haramasu.daomin.repo.TagRepo;
 import com.haramasu.daomin.repo.dsl.PostDslRepo;
 import com.haramasu.daomin.repo.dsl.TagDslRepo;
 import com.haramasu.daomin.service.CategoryService;
 import com.haramasu.daomin.service.PostService;
 import com.haramasu.daomin.service.TagService;
+import com.haramasu.daomin.util.PostUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +52,12 @@ public class PostServiceImpl implements PostService{
     public PostEntity addNewPost(PostDTO postDTO) {
         PostEntity postEntity=new PostEntity();
         BeanUtils.copyProperties(postDTO,postEntity);
+        //提取摘要和第一个图片
+        if(StringUtils.isBlank(postDTO.getSummary())){
+            PostSummaryAndImageUrl summaryFromMarkdownText = PostUtil.getSummaryFromMarkdownText(postDTO.getContent());
+            postEntity.setSummary(summaryFromMarkdownText.getSummary());
+            postEntity.setFirstImg(summaryFromMarkdownText.getFirstImageUri());
+        }
         //开始添加tag和category
         return modifyPostTagAndCate(postDTO, postEntity);
     }
