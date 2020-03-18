@@ -2,15 +2,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ArticleComponent } from "./article.component";
 import { ListComponent } from './list/list.component';
-import { EditComponent } from "./edit/edit.component";
 
 
 const routes: Routes = [
     {
         path: '', component: ArticleComponent, children: [
             { path: 'list', component: ListComponent },
-            { path: 'edit/:id', component: EditComponent },
-            { path: 'edit', component: EditComponent },
             { path: '', redirectTo: 'list', pathMatch: 'full' }
         ]
     }

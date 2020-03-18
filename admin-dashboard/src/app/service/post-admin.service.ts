@@ -33,11 +33,11 @@ export class PostAdminService {
     return this.http.post('http://127.0.0.1:8080/api/admin/v1/post',post);
   }
 
-  getOne(postId:string){
+  getOne(postId:number){
     return this.http.get('http://127.0.0.1:8080/api/admin/v1/post/'+postId);
   }
 
-  modifyOne(postId:string,post:NewPostModel){
+  modifyOne(postId:number,post:NewPostModel){
     return this.http.put('http://127.0.0.1:8080/api/admin/v1/post/'+postId,post);
   }
 }

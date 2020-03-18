@@ -78,7 +78,7 @@
         <td>{{ data.tags }}</td>
         <td>{{ data.createTime }}</td>
         <td>
-          <a title="编辑文章" (click)="openEditDrawer()"
+          <a title="编辑文章" (click)="openEditDrawer(data.id)"
             ><i nz-icon [nzType]="'edit'"></i
           ></a>
           <nz-divider nzType="vertical"></nz-divider>
@@ -246,7 +246,7 @@
       </button>
       <button
         type="button"
-        (click)="saveOrupdatePost()"
+        (click)="openPreview()"
         class="ant-btn ant-btn-dashed"
       >
         <span>预览</span>
@@ -264,7 +264,8 @@
   nzWidth="960"
   [nzStyle]="{ top: '20px' }"
 >
-  <markdown [data]="newPost.content" class="markdown-body"></markdown>
+  <!-- <markdown [data]="newPost.content" class="markdown-body"></markdown> -->
+  <markdown></markdown>
   <div *nzModalFooter>
     <button nz-button nzType="primary" (click)="closePreview()">确定</button>
   </div>

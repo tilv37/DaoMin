@@ -11,7 +11,7 @@ import { MarkdownModule } from 'ngx-markdown';
 @NgModule({
   declarations: [ListComponent],
   imports: [
-    CommonModule,SharedModule,NzDrawerModule,FormsModule,NzFormModule,MarkdownModule
+    CommonModule,SharedModule,NzDrawerModule,FormsModule,NzFormModule,MarkdownModule.forRoot()
   ],
   exports:[]
 })

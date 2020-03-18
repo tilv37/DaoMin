@@ -111,11 +111,6 @@ export class ListComponent implements OnInit {
     })
   }
 
-  goEditPost(postId:number):void{
-    this.router.navigate(['/article/edit',postId]);
-  }
-
-
   deletePostById(postId:number):void{
     this.modalService.confirm({
       nzTitle:'<i>确认删除吗?</i>',
@@ -128,7 +123,13 @@ export class ListComponent implements OnInit {
     })
   }
 
-  openEditDrawer(): void {
+  openEditDrawer(postId:number): void {
+    if(postId){
+      this.postService.getOne(postId).subscribe((x:ResponseDTOModel)=>{
+        console.log(x.data);
+        this.newPost=x.data;
+      })
+    }
     this.editVisible = true;
   }
 
@@ -147,12 +148,21 @@ export class ListComponent implements OnInit {
   }
 
   saveOrupdatePost(){
-    this.postService.addOne(this.newPost).subscribe(
-      x=>{
-        this.message.info("保存成功");
-        this.newPost=new NewPostModel();
-      }
-    )
+    if(this.newPost.id){
+      this.postService.modifyOne(this.newPost.id,this.newPost).subscribe(
+        x=>{
+          this.message.info("保存成功");
+          this.newPost=new NewPostModel();
+        }
+      )
+    }else{
+      this.postService.addOne(this.newPost).subscribe(
+        x=>{
+          this.message.info("保存成功");
+          this.newPost=new NewPostModel();
+        }
+      )
+    }
   }
 
   getTranslte(){
