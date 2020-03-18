@@ -15,6 +15,8 @@ import java.util.List;
 @Builder
 public class PostDTO {
 
+    private Integer id;
+
     private String title;
 
     private String titleEn;

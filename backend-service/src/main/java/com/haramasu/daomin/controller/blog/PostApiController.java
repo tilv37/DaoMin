@@ -2,6 +2,7 @@ package com.haramasu.daomin.controller.blog;
 
 import cn.hutool.core.date.DateUtil;
 import com.haramasu.daomin.entity.db.PostEntity;
+import com.haramasu.daomin.entity.db.TagEntity;
 import com.haramasu.daomin.entity.dto.PostSummaryAndImageUrl;
 import com.haramasu.daomin.entity.dto.ResponseDTO;
 import com.haramasu.daomin.entity.vos.PostVO;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author: Shuo Ding
@@ -43,7 +45,11 @@ public class PostApiController {
             if (StringUtils.isBlank(postEntity.getSummary())) {
                 PostSummaryAndImageUrl postSummaryAndImageUrl = PostUtil.getSummaryFromMarkdownText(postEntity.getContent());
                 postVO.setSummaryContent(postSummaryAndImageUrl.getSummary());
+            }else{
+                postVO.setSummaryContent(postEntity.getSummary());
             }
+            List<String> tags = postEntity.getTagEntities().stream().map(TagEntity::getTagName).collect(Collectors.toList());
+            postVO.setTagNames(tags);
             return postVO;
         }).collect(Collectors.toList());
         PageImpl<PostVO> postVOPage = new PageImpl<>(postVOS, allPost.getPageable(), allPost.getTotalElements());
