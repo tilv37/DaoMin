@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    </head>
+    <body>
+        <!-- Introduction menu -->
+        <div class="w3-col l4" th:fragment="bloglist">
+            <!-- About Card -->
+            <div class="w3-card w3-margin w3-margin-top profile">
+                <div class="w3-container w3-white " style="padding: 1em">
+                    <img
+                            src="http://image.biaobaiju.com/uploads/20190705/21/1562332765-ielrmZWBUh.jpg"
+                            alt="John"
+                            style="width:100%"
+                            class="w3-round"
+                    />
+                    <h1>John Doe</h1>
+                    <p class="title">CEO & Founder, Example</p>
+                    <p>Harvard University</p>
+                    <a href="#"><i class="fa fa-weibo"></i></a>
+                    <a href="#"><i class="fa fa-github"></i></a>
+                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                    <a href="#"><i class="fa fa-weixin"></i></a>
+                </div>
+            </div>
+            <hr/>
+
+            <!-- search -->
+            <div class="w3-card w3-margin search">
+                <form class="search" action="">
+                    <input type="text" placeholder="Search.." name="search"/>
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+            <hr/>
+
+            <!-- Labels / categories -->
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>Categories</h4>
+                </div>
+                <div class="w3-container w3-white">
+                    <p>
+                        <a
+                                class="w3-tag w3-black w3-margin-bottom"
+                                href="/category/小有技术"
+                        >Travel</a
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >New York</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >London</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >IKEA</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >NORWAY</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >DIY</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Ideas</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Baby</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Family</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >News</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Clothing</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Shopping</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Sports</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Games</span
+                        >
+                    </p>
+                </div>
+            </div>
+            <hr/>
+
+            <!-- Labels / tags -->
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>Tags</h4>
+                </div>
+                <div class="w3-container w3-white">
+                    <p>
+                        <span class="w3-tag w3-black w3-margin-bottom">Travel</span>
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >New York</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >London</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >IKEA</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >NORWAY</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >DIY</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Ideas</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Baby</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Family</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >News</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Clothing</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Shopping</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Sports</span
+                        >
+                        <span class="w3-tag w3-light-grey w3-small w3-margin-bottom"
+                        >Games</span
+                        >
+                    </p>
+                </div>
+            </div>
+            <hr/>
+
+            <!-- Posts -->
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>Popular Posts</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    <li
+                            class="w3-padding-16"
+                            style="padding: 1em;"
+                            onclick="javascript:openArchive('2020')"
+                    >
+                        2020
+                        <span class="w3-badge w3-green w3-right">1</span>
+                    </li>
+                    <li
+                            class="w3-padding-16"
+                            style="padding: 1em;"
+                            onclick="javascript:openArchive('2020')"
+                    >
+                        2020
+                        <span class="w3-badge w3-green w3-right">1</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- END Introduction Menu -->
+        </div>
+
+    </body>
+</html>

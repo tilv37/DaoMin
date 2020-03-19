@@ -1,11 +1,13 @@
 package com.haramasu.daomin.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.haramasu.daomin.entity.db.CategoryEntity;
 import com.haramasu.daomin.entity.db.PostEntity;
 import com.haramasu.daomin.entity.db.TagEntity;
 import com.haramasu.daomin.entity.dto.PostDTO;
 import com.haramasu.daomin.entity.dto.PostSummaryAndImageUrl;
 import com.haramasu.daomin.entity.vos.PostSummaryVO;
+import com.haramasu.daomin.entity.vos.PostVO;
 import com.haramasu.daomin.repo.PostRepo;
 import com.haramasu.daomin.repo.dsl.PostDslRepo;
 import com.haramasu.daomin.repo.dsl.TagDslRepo;
@@ -16,10 +18,7 @@ import com.haramasu.daomin.util.PostUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -113,5 +112,28 @@ public class PostServiceImpl implements PostService{
     @Override
     public void deletePostById(Integer postId) {
         postRepo.deleteById(postId);
+    }
+
+    @Override
+    public Page<PostVO> loadHomePageData(int pageNo, int pageSize) {
+        Page<PostEntity> allPost = getAllPost(pageNo-1, pageSize);
+        List<PostVO> postVOS = allPost.getContent().stream().map(postEntity -> {
+            PostVO postVO = new PostVO();
+            postVO.setCategoryNames(postEntity.getCategoryEntity().getCategoryName());
+            postVO.setTitle(postEntity.getTitle());
+            postVO.setTitleEn(postEntity.getTitleEn());
+            postVO.setCreateTime(DateUtil.formatTime(postEntity.getCreateTime()));
+            if (StringUtils.isBlank(postEntity.getSummary())) {
+                PostSummaryAndImageUrl postSummaryAndImageUrl = PostUtil.getSummaryFromMarkdownText(postEntity.getContent());
+                postVO.setSummaryContent(postSummaryAndImageUrl.getSummary());
+            }else{
+                postVO.setSummaryContent(postEntity.getSummary());
+            }
+            List<String> tags = postEntity.getTagEntities().stream().map(TagEntity::getTagName).collect(Collectors.toList());
+            postVO.setTagNames(tags);
+            return postVO;
+        }).collect(Collectors.toList());
+        PageImpl<PostVO> postVOPage = new PageImpl<>(postVOS, allPost.getPageable(), allPost.getTotalElements());
+        return postVOPage;
     }
 }
