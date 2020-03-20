@@ -7,6 +7,8 @@ import com.haramasu.daomin.repo.CategoryRepo;
 import com.haramasu.daomin.repo.dsl.CategoryDslRepo;
 import com.haramasu.daomin.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryDslRepo categoryDslRepo;
 
     @Override
+    @CacheEvict(value = "allCateNames",allEntries = true)
     public ResponseDTO<CategoryEntity> addNewCategory(String categoryName) {
         if(isCategoryExist(categoryName)){
             return ResponseDTO.error("该分类已经存在，请更换");
@@ -41,6 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @CacheEvict(value = "allCateNames",allEntries = true)
     public void deleteCategory(Integer id) {
         categoryRepo.deleteById(id);
     }
@@ -69,6 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Cacheable("allCateNames")
     public List<String> getAllCateNames() {
         return categoryDslRepo.findAllCategoryNames();
     }

@@ -17,9 +17,11 @@ import java.util.Date;
 public abstract class AbstractAuditable {
 
     @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
     @LastModifiedBy
+    @Temporal(TemporalType.TIMESTAMP)
     private Date modifyTIme;
 
     public Date getCreateTime() {

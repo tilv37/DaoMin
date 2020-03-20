@@ -26,6 +26,7 @@ import java.util.List;
 }
 )
 @Entity
+@Table(name = "dm_tag")
 public class TagEntity extends AbstractAuditable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

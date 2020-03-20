@@ -57,7 +57,7 @@ public class PostTagRelationRepoImpl extends AbstractNativeQueryRepo implements 
 
         //构造常规查询结果sql
         StringBuilder sb=new StringBuilder();
-        sb.append("select te.id as tid, te.tag_name as tagName, count(ptr.post_id) as postNo from tag_entity as te ");
+        sb.append("select te.id as tid, te.tag_name as tagName, count(ptr.post_id) as postNo from dm_tag as te ");
         sb.append("left join post_tag_relation as ptr on te.id = ptr.tag_id ");
         sb.append("group by te.id order by te.id");
 

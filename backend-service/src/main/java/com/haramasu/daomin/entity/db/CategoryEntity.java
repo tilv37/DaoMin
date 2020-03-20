@@ -9,6 +9,7 @@ import java.util.Date;
  * @date: 8/12/2019
  */
 @Entity
+@Table(name = "dm_category")
 public class CategoryEntity extends AbstractAuditable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

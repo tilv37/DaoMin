@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{index.html}">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Content title</title>
-    <script src="content-script.js"></script>
 </head>
 <body>
-<section layout:fragment="content">
-    <p>my content</p>
-</section>
-<footer>
-    <p layout:fragment="custom-footer">my footer</p>
-</footer>
+    <div>dsadsad</div>
+    <div th:text="name"></div>
+    <div th:each="tagName:${allTagNames}">
+        <div th:text="${tagName}"></div>
+    </div>
 </body>
 </html>

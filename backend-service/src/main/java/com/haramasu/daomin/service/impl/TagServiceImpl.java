@@ -11,6 +11,8 @@ import com.haramasu.daomin.repo.dsl.TagDslRepo;
 import com.haramasu.daomin.service.TagService;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -41,6 +43,7 @@ public class TagServiceImpl implements TagService {
     EntityManager entityManager;
 
     @Override
+    @CacheEvict(value = "allTagNames",allEntries = true)
     public ResponseDTO<TagEntity> addNewTag(String tagName) {
         if(isTagExist(tagName)){
             return ResponseDTO.error("该标签已存在，请更换");
@@ -52,6 +55,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    @CacheEvict(value = "allTagNames",allEntries = true)
     public void deleteTag(Integer id) {
         tagRepo.deleteById(id);
     }
@@ -78,6 +82,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    @Cacheable("allTagNames")
     public List<String> getAllTagNames() {
         return tagDslRepo.findAllTagNames();
     }

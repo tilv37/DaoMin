@@ -6,6 +6,7 @@ import com.haramasu.daomin.entity.db.PostEntity;
 import com.haramasu.daomin.entity.db.TagEntity;
 import com.haramasu.daomin.entity.dto.PostDTO;
 import com.haramasu.daomin.entity.dto.PostSummaryAndImageUrl;
+import com.haramasu.daomin.entity.vos.ArchiveVO;
 import com.haramasu.daomin.entity.vos.PostSummaryVO;
 import com.haramasu.daomin.entity.vos.PostVO;
 import com.haramasu.daomin.repo.PostRepo;
@@ -135,5 +136,10 @@ public class PostServiceImpl implements PostService{
         }).collect(Collectors.toList());
         PageImpl<PostVO> postVOPage = new PageImpl<>(postVOS, allPost.getPageable(), allPost.getTotalElements());
         return postVOPage;
+    }
+
+    @Override
+    public List<ArchiveVO> findArchive() {
+        return null;
     }
 }

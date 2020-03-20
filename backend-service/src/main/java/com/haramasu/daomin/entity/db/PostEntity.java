@@ -30,6 +30,7 @@ import java.util.Set;
 )
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(name = "dm_post")
 public class PostEntity{
 
     @Id
@@ -45,9 +46,11 @@ public class PostEntity{
     @Lob
     private String content;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
     @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
     private Date modifyTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
