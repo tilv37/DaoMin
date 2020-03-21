@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title layout:title-pattern="HRAMASU - $CONTENT_TITLE">HARAMASU</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="/css/w3.css"/>
+        <link href="https://lib.baomitu.com/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet">
+        <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css?family=Raleway"
+        />
+        <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <style>
+            .w3-myfont {
+                font-family: "Microsoft Yahei Light", "Microsoft Yahei", Helvetica, Arial,
+                sans-serif;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            a:hover {
+                color: #38b7ea;
+            }
+
+            .profile {
+                text-align: center;
+            }
+
+            .profile .title {
+                color: grey;
+                font-size: 18px;
+            }
+
+            .profile a {
+                text-decoration: none;
+                font-size: 22px;
+                color: black;
+            }
+
+            .profile button:hover,
+            a:hover {
+                opacity: 0.7;
+            }
+
+            form.search input[type="text"] {
+                padding: 10px;
+                font-size: 17px;
+                border: 1px solid grey;
+                float: left;
+                width: 80%;
+            }
+
+            /* Style the submit button */
+            form.search button {
+                float: left;
+                width: 20%;
+                padding: 10px;
+                background: #2196f3;
+                color: white;
+                font-size: 17px;
+                border: 1px solid grey;
+                border-left: none; /* Prevent double borders */
+                cursor: pointer;
+            }
+
+            form.search button:hover {
+                background: #0b7dda;
+            }
+
+            /* Clear floats */
+            form.search::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="w3-content" style="max-width:1400px">
+            <div th:replace="fragments/header :: header">
+            </div>
+        </div>
+
+        <section layout:fragment="custom-content">
+            <p>Your page content goes here</p>
+        </section>
+
+    </body>
+</html>

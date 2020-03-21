@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" layout:decorator="~{fragments/layoutsNoFooter.html}">
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="${errorCode}"></title>
+    </head>
+    <body>
+
+        <section layout:fragment="custom-content">
+            <div class="w3-row">
+                <div class="w3-content">
+
+                    <div class="w3-center">
+                        <h1>可能出错了！错误代码：</h1>
+                        <p th:text="${errorCode}" style="font-size: 40px"></p>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </section>
+
+        <div th:replace="fragments/footer :: footer" th:remove="tag">&copy; 2017 The Static Templates</div>
+    </body>
+</html>
