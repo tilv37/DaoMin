@@ -7,6 +7,7 @@ import org.commonmark.renderer.html.HtmlRenderer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.security.core.parameters.P;
 
 /**
  * @author: Shuo Ding
@@ -21,11 +22,9 @@ public class PostUtil {
      * @return
      */
     public static PostSummaryAndImageUrl getSummaryFromMarkdownText(String markdownText){
+        String html = markdownToHtml(markdownText);
+        Document document = Jsoup.parse(html);
         PostSummaryAndImageUrl postSummaryAndImageUrl=new PostSummaryAndImageUrl();
-        Parser parser = Parser.builder().build();
-        Node node = parser.parse(markdownText);
-        HtmlRenderer renderer= HtmlRenderer.builder().build();
-        Document document = Jsoup.parse(renderer.render(node));
         postSummaryAndImageUrl.setSummary(document.text().substring(0,200));
         Element img = document.select("img").first();
         if(img!=null){
@@ -34,5 +33,13 @@ public class PostUtil {
         }
 
         return postSummaryAndImageUrl;
+    }
+
+    public static String markdownToHtml(String markdownText){
+        Parser parser = Parser.builder().build();
+        Node node = parser.parse(markdownText);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        String html = renderer.render(node);
+        return html;
     }
 }

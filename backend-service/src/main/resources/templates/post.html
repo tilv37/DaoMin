@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-Hans" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">HARAMASU</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" type="text/css" href="/css/w3.css"/>
+        <link href="https://lib.baomitu.com/github-markdown-css/2.10.0/github-markdown.min.css" rel="stylesheet">
+        <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css?family=Raleway"
+        />
+        <link
+                rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <style>
+            .w3-myfont {
+                font-family: "Microsoft Yahei Light", "Microsoft Yahei", Helvetica, Arial,
+                sans-serif;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            a:hover {
+                color: #38b7ea;
+            }
+
+            .profile {
+                text-align: center;
+            }
+
+            .profile .title {
+                color: grey;
+                font-size: 18px;
+            }
+
+            .profile a {
+                text-decoration: none;
+                font-size: 22px;
+                color: black;
+            }
+
+            .profile button:hover,
+            a:hover {
+                opacity: 0.7;
+            }
+
+            form.search input[type="text"] {
+                padding: 10px;
+                font-size: 17px;
+                border: 1px solid grey;
+                float: left;
+                width: 80%;
+            }
+
+            /* Style the submit button */
+            form.search button {
+                float: left;
+                width: 20%;
+                padding: 10px;
+                background: #2196f3;
+                color: white;
+                font-size: 17px;
+                border: 1px solid grey;
+                border-left: none; /* Prevent double borders */
+                cursor: pointer;
+            }
+
+            form.search button:hover {
+                background: #0b7dda;
+            }
+
+            /* Clear floats */
+            form.search::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="w3-content" style="max-width:1400px">
+            <div th:replace="fragments/header :: header">
+            </div>
+        </div>
+
+        <div class="w3-row">
+            <div class="w3-content" th:name="post">
+                <div class="w3-card-4 w3-margin-16 w3-white">
+                    <div class="w3-container w3-padding-8">
+                        <h3>
+                            <b id="post-title" th:text="${post.title}">标题</b>
+                        </h3>
+                        <h5>
+                            <i class="fa fa-calendar" style="color: #4E5465" id="post-tm" th:text="' '+${post.createTime}">
+                                2020-02-23
+                            </i>
+                            ,
+                            <a th:href="@{'/category/'+${post.categoryNames}}">
+                                <i class="fa fa-bookmark" aria-hidden="true" th:text="' '+${post.categoryNames}"></i>
+                            </a>
+                            <th:block th:each="tag:${post.tagNames}">
+                                <a
+                                   style="font-size: 12px"
+                                   th:href="@{'/tag/'+${tag}}">
+                                    <i class="fa fa-tag" aria-hidden="true" th:text="' '+${tag}"></i>
+                                </a>
+                            </th:block>
+                        </h5>
+                        <hr>
+                    </div>
+                    <div class="w3-container" th:name="main-content">
+                        <div>
+                            <div id="summary" class=" markdown-body" th:utext="${post.summaryContent}">
+                                摘要
+                            </div>
+                            <hr>
+                            <div id="content" class=" markdown-body" th:utext="${post.content}">
+                                正文
+                            </div>
+                        </div>
+                        <hr/>
+                        <div style="margin-bottom: 1em">
+                            <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+                                <img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png">
+                            </a>
+                            <br> 本作品采用
+                            <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">知识共享署名 4.0 国际许可协议</a>进行许可。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+
+        <div th:replace="fragments/footer :: footer">&copy; 2017 The Static Templates</div>
+    </body>
+</html>

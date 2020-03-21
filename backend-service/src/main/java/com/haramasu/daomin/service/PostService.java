@@ -27,4 +27,6 @@ public interface PostService {
     Page<PostVO> loadHomePageData(int pageNo, int pageSize);
 
     List<ArchiveVO> findArchive();
+
+    PostVO findByTitleEn(String titleEn);
 }

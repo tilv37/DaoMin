@@ -1,12 +1,15 @@
 package com.haramasu.daomin.entity.vos;
 
+import java.io.Serializable;
+
 /**
  * @author: Shuo Ding
  * @description:
  * @date: 3/20/2020
  */
-public class ArchiveVO {
+public class ArchiveVO implements Serializable {
 
+    private static final long serialVersionUID = 5969738731717960836L;
     private String archiveDate;
     private Integer count;
 

@@ -10,13 +10,13 @@
                 <div class="w3-container w3-white " style="padding: 1em">
                     <img
                             src="http://image.biaobaiju.com/uploads/20190705/21/1562332765-ielrmZWBUh.jpg"
-                            alt="John"
+                            alt="ding"
                             style="width:100%"
                             class="w3-round"
                     />
-                    <h1>John Doe</h1>
-                    <p class="title">CEO & Founder, Example</p>
-                    <p>Harvard University</p>
+                    <h1>Ding,Shuo</h1>
+                    <p class="title">Software Engineer</p>
+                    <p>NEEPU & T-Systems</p>
                     <a href="#"><i class="fa fa-weibo"></i></a>
                     <a href="#"><i class="fa fa-github"></i></a>
                     <a href="#"><i class="fa fa-linkedin"></i></a>
@@ -56,7 +56,7 @@
             <!-- Labels / tags -->
             <div class="w3-card w3-margin">
                 <div class="w3-container w3-padding">
-                    <h4>Tags</h4>
+                    <h4>标签</h4>
                 </div>
                 <div class="w3-container w3-white">
                     <p>
@@ -75,30 +75,28 @@
             <!-- Posts -->
             <div class="w3-card w3-margin">
                 <div class="w3-container w3-padding">
-                    <h4>Popular Posts</h4>
+                    <h4>归档</h4>
                 </div>
-                <ul class="w3-ul w3-hoverable w3-white">
+                <ul class="w3-ul w3-hoverable w3-white" id="archiveUL">
                     <li
+                            th:each="archive:${archives}"
                             class="w3-padding-16"
                             style="padding: 1em;"
-                            onclick="javascript:openArchive('2020')"
+                            th:attr="data-archive=${archive.archiveDate}"
+                            th:onclick="'javascript:viewArchive(this)'"
                     >
-                        2020
-                        <span class="w3-badge w3-green w3-right">1</span>
-                    </li>
-                    <li
-                            class="w3-padding-16"
-                            style="padding: 1em;"
-                            onclick="javascript:openArchive('2020')"
-                    >
-                        2020
-                        <span class="w3-badge w3-green w3-right">1</span>
+                        <th:block th:text="${archive.archiveDate}"/>
+                        <span class="w3-badge w3-green w3-right" th:text="${archive.count}"></span>
                     </li>
                 </ul>
             </div>
 
             <!-- END Introduction Menu -->
+            <script>
+                function viewArchive(that){
+                    window.location.href="/archive/"+ that.getAttribute("data-archive");
+                }
+            </script>
         </div>
-
     </body>
 </html>

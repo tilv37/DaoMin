@@ -15,6 +15,8 @@ public class PostVO {
 
     private String summaryContent;
 
+    private String content;
+
     private String categoryNames;
 
     private List<String> tagNames;
@@ -67,5 +69,13 @@ public class PostVO {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

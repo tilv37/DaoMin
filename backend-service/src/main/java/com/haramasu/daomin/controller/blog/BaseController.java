@@ -1,5 +1,6 @@
 package com.haramasu.daomin.controller.blog;
 
+import com.haramasu.daomin.entity.vos.ArchiveVO;
 import com.haramasu.daomin.service.CategoryService;
 import com.haramasu.daomin.service.PostService;
 import com.haramasu.daomin.service.TagService;
@@ -26,9 +27,11 @@ public abstract class BaseController {
     public Map<String,Object> getTagNamesAndCateNames(){
         List<String> allTagNames = tagService.getAllTagNames();
         List<String> allCateNames = categoryService.getAllCateNames();
+        List<ArchiveVO> archives = postService.findArchive();
         return new HashMap<String,Object>(){{
             put("allTagNames",allTagNames);
             put("allCateNames",allCateNames);
+            put("archives",archives);
         }};
 
     }

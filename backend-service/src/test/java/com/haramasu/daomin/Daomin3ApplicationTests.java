@@ -1,10 +1,6 @@
 package com.haramasu.daomin;
 
 import com.haramasu.daomin.service.PostService;
-import org.commonmark.node.Node;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
-import org.jsoup.Jsoup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,12 +57,6 @@ public class Daomin3ApplicationTests {
                 "   8. 根据ticket上相关信息，填写表单\n" +
                 "   9. 确认表单无误后提交";
 
-        Parser parser = Parser.builder().build();
-        Node parse = parser.parse(text);
-        HtmlRenderer renderer= HtmlRenderer.builder().build();
-        String render = renderer.render(parse);
-        String text1 = Jsoup.parse(render).text();
-        System.out.println(text1);
 
 
     }

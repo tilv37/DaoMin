@@ -31,6 +31,14 @@ import java.util.Set;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "dm_post")
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "findAll",
+                attributeNodes = {
+                        @NamedAttributeNode("tagEntities")
+                }
+        )
+})
 public class PostEntity{
 
     @Id

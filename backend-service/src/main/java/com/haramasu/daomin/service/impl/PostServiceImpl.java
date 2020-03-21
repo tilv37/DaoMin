@@ -19,9 +19,11 @@ import com.haramasu.daomin.util.PostUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -123,7 +125,7 @@ public class PostServiceImpl implements PostService{
             postVO.setCategoryNames(postEntity.getCategoryEntity().getCategoryName());
             postVO.setTitle(postEntity.getTitle());
             postVO.setTitleEn(postEntity.getTitleEn());
-            postVO.setCreateTime(DateUtil.formatTime(postEntity.getCreateTime()));
+            postVO.setCreateTime(DateUtil.format(postEntity.getCreateTime(),"EEE MMM d,yyyy"));
             if (StringUtils.isBlank(postEntity.getSummary())) {
                 PostSummaryAndImageUrl postSummaryAndImageUrl = PostUtil.getSummaryFromMarkdownText(postEntity.getContent());
                 postVO.setSummaryContent(postSummaryAndImageUrl.getSummary());
@@ -139,7 +141,30 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
+    @Cacheable(cacheNames = "archives")
     public List<ArchiveVO> findArchive() {
-        return null;
+        return postDslRepo.findArchiveCountBy();
+    }
+
+    @Override
+    public PostVO findByTitleEn(String titleEn) {
+        PostEntity postEntity = postRepo.findTopByTitleEn(titleEn);
+        PostVO postVO=new PostVO();
+        if(postEntity!=null){
+            postVO.setTitle(postEntity.getTitle());
+            postVO.setCreateTime(DateUtil.format(postEntity.getCreateTime(),"EEE MMM d,yyyy"));
+            postVO.setCategoryNames(postEntity.getCategoryEntity().getCategoryName());
+            postVO.setTagNames(postEntity.getTagEntities().stream().map(TagEntity::getTagName).collect(Collectors.toList()));
+            postVO.setSummaryContent(postEntity.getSummary());
+           //这里讲markdown转为html直接渲染
+            String markdownToHtml = PostUtil.markdownToHtml(postEntity.getContent());
+            postVO.setContent(markdownToHtml);
+        }
+        return postVO;
+    }
+
+    public static void main(String[] args) {
+        String format = DateUtil.format(new Date(), "EEE MMM d,yyyy");
+        System.out.println(format);
     }
 }
