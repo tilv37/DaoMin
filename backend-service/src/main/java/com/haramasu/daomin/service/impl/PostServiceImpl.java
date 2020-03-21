@@ -93,7 +93,7 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public Page<PostEntity> getAllPost(int pageNo, int pageSize) {
-        Page<PostEntity> postEntities = postRepo.findAll(PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.ASC, "createTime")));
+        Page<PostEntity> postEntities = postRepo.findAllByOrderByCreateTimeDesc(PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.ASC, "createTime")));
         return postEntities;
     }
 
