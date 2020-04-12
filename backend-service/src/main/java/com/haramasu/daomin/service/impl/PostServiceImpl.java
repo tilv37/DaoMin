@@ -141,7 +141,7 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    @Cacheable(cacheNames = "archives")
+    @Cacheable(cacheNames = "ARCHIVE")
     public List<ArchiveVO> findArchive() {
         return postDslRepo.findArchiveCountBy();
     }

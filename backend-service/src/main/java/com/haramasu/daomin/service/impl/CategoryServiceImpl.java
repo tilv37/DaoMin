@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryDslRepo categoryDslRepo;
 
     @Override
-    @CacheEvict(value = "allCateNames",allEntries = true)
+    @CacheEvict(value = "CATE_NAMES",allEntries = true)
     public ResponseDTO<CategoryEntity> addNewCategory(String categoryName) {
         if(isCategoryExist(categoryName)){
             return ResponseDTO.error("该分类已经存在，请更换");
@@ -44,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @CacheEvict(value = "allCateNames",allEntries = true)
+    @CacheEvict(value = "CATE_NAMES",allEntries = true)
     public void deleteCategory(Integer id) {
         categoryRepo.deleteById(id);
     }
@@ -73,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Cacheable("allCateNames")
+    @Cacheable("CATE_NAMES")
     public List<String> getAllCateNames() {
         return categoryDslRepo.findAllCategoryNames();
     }

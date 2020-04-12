@@ -16,7 +16,7 @@
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
         <style>
-            .w3-myfont {
+            html, body, h1, h2, h3, h4, h5 {
                 font-family: "Microsoft Yahei Light", "Microsoft Yahei", Helvetica, Arial,
                 sans-serif;
             }
@@ -86,11 +86,10 @@
         <div class="w3-content" style="max-width:1400px">
             <div th:replace="fragments/header :: header">
             </div>
+            <section layout:fragment="custom-content">
+                <p>Your page content goes here</p>
+            </section>
         </div>
-
-        <section layout:fragment="custom-content">
-            <p>Your page content goes here</p>
-        </section>
 
         <div th:replace="fragments/footer :: footer">&copy; 2017 The Static Templates</div>
     </body>

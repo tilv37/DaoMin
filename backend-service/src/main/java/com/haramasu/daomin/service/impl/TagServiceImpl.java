@@ -43,7 +43,7 @@ public class TagServiceImpl implements TagService {
     EntityManager entityManager;
 
     @Override
-    @CacheEvict(value = "allTagNames",allEntries = true)
+    @CacheEvict(value = "ALL_TAGS",allEntries = true)
     public ResponseDTO<TagEntity> addNewTag(String tagName) {
         if(isTagExist(tagName)){
             return ResponseDTO.error("该标签已存在，请更换");
@@ -55,7 +55,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    @CacheEvict(value = "allTagNames",allEntries = true)
+    @CacheEvict(value = "ALL_TAGS",allEntries = true)
     public void deleteTag(Integer id) {
         tagRepo.deleteById(id);
     }
@@ -82,7 +82,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    @Cacheable("allTagNames")
+    @Cacheable("ALL_TAGS")
     public List<String> getAllTagNames() {
         return tagDslRepo.findAllTagNames();
     }
