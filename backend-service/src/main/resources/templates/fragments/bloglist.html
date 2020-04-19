@@ -6,7 +6,7 @@
         <!-- Blog entries -->
         <div class="w3-col l8 s12" th:fragment="bloglist">
             <!-- Blog entry -->
-            <th:block th:each="post,iterStat:${posts}">
+            <th:block th:each="post,iterStat:${contents.getContent()}">
                 <div class="w3-card-4 w3-margin w3-white">
                     <div class="w3-container">
                         <h3><b th:text="${post.title}">TITLE HEADING</b></h3>
@@ -52,6 +52,21 @@
                 <hr th:if="${not iterStat.last}"/>
             </th:block>
             <!-- END BLOG ENTRIES -->
+
+            <section th:if="${contents}" class="w3-center">
+                <button
+                        th:if="${contents.hasPrevious()}"
+                        class="w3-button w3-black w3-padding-large w3-margin-bottom"
+                >
+                    <!--                    Previous-->
+                    <a th:href="'/?pageNo=' + ${contents.previousPageable().getPageNumber() +1} +'&&pageSize=' +${contents.getPageable().getPageSize()}" th:text="上一页"></a>
+                </button>
+                <button class="w3-button w3-black w3-padding-large w3-margin-bottom"
+                        th:if="${contents.hasNext()}">
+                    <a th:href="'/?pageNo=' + ${contents.nextPageable().getPageNumber() +1} +'&&pageSize=' +${contents.getPageable().getPageSize()}" th:text="下一页"></a>
+                    <!--                    Next »-->
+                </button>
+            </section>
         </div>
     </body>
 </html>

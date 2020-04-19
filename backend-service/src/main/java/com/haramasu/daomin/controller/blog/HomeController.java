@@ -27,7 +27,7 @@ public class HomeController extends BaseController {
         Page<PostVO> postVOS = postService.loadHomePageData(pageNo, pageSize);
         model.mergeAttributes(tagNamesAndCateNames);
         model.addAttribute("name","dingshuo");
-        model.addAttribute("posts",postVOS.getContent());
+        model.addAttribute("contents",postVOS);
         return "index";
     }
 
